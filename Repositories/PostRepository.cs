@@ -15,17 +15,17 @@ namespace SimpleBlog.Repositories
 
         public List<Post> GetAll()
         {
-            return _blogContext.Posts.ToList();
+            return _blogContext.Posts!.ToList();
         }
 
         public Post? Get(int id)
         {
-            return _blogContext.Posts.Find(id);
+            return _blogContext.Posts!.Find(id);
         }
 
         public Post Delete(int id)
         {
-            var dbPost = _blogContext.Posts.Find(id);
+            var dbPost = _blogContext.Posts!.Find(id);
             if (dbPost == null)
             {
                 throw new ArgumentException($"Could not find post with id ${id}");
@@ -39,14 +39,14 @@ namespace SimpleBlog.Repositories
 
         public Post Create(Post post)
         {
-            _blogContext.Posts.Add(post);
+            _blogContext.Posts!.Add(post);
             _blogContext.SaveChanges();
             return post;
         }
 
         public Post Modify(Post newPost)
         {
-            var oldPost = _blogContext.Posts.Find(newPost);
+            var oldPost = _blogContext.Posts!.Find(newPost);
             if (oldPost == null)
             {
                 throw new ArgumentException("Could not find post with given id");
