@@ -128,4 +128,6 @@ $RECYCLE.BIN/
 _NCrunch*
 
 # Database
-blog.db
+*.db
+*.db-shm
+*.db-wal

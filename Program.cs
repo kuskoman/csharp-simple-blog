@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddMyDependencyGroup();
 builder.Services.AddControllers();
 
 builder.Services.AddSqlite<BlogContext>("Data Source=blog.db;Cache=Shared");

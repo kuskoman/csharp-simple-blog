@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
+using SimpleBlog.Services.Interfaces;
 
 namespace SimpleBlog.Controllers
 {
@@ -12,23 +13,28 @@ namespace SimpleBlog.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
+        private readonly IUserService _userService;
 
-        public UsersController(ILogger<UsersController> logger)
+        public UsersController(ILogger<UsersController> logger, IUserService userService)
         {
             _logger = logger;
+            _userService = userService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Post>> Get()
+        public ActionResult<IEnumerable<User>> Get()
         {
-            return new List<Post>();
+            return _userService.GetAll();
         }
 
         [HttpPost]
-        public void Post([FromBody] Post Post) { }
+        public User Post([FromBody] User user)
+        {
+            return _userService.Create(user);
+        }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] Post Post) { }
+        public void Put([FromBody] User user) { }
 
         [HttpDelete("{id}")]
         public void Delete(int id) { }
