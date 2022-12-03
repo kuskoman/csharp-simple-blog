@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.Models;
 
-namespace SimpleBlog.Services
+namespace SimpleBlog.Database
 {
     public class BlogContext : DbContext
     {

@@ -1,4 +1,4 @@
-using SimpleBlog.Services;
+using SimpleBlog.Database;
 using SimpleBlog.Models;
 using SimpleBlog.Repositories.Interfaces;
 

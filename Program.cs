@@ -1,4 +1,4 @@
-using SimpleBlog.Services;
+using SimpleBlog.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
