@@ -36,7 +36,7 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public ActionResult<User> Create([FromBody] User user)
         {
             return Created("test", _userService.Create(user));
         }
