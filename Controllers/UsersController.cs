@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SimpleBlog.Controllers
 {
@@ -21,22 +18,39 @@ namespace SimpleBlog.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<User>> Get()
+        [HttpGet("{id:int}")]
+        public ActionResult<User> Get(int id)
+        {
+            var user = _userService.Get(id);
+            if (user == null)
+            {
+                return NotFound($"Could not find user with id ${id}");
+            }
+            return Ok(user);
+        }
+
+        [HttpGet("")]
+        public ActionResult<IEnumerable<User>> Index()
         {
             return _userService.GetAll();
         }
 
         [HttpPost]
-        public User Post([FromBody] User user)
+        public ActionResult<User> Post([FromBody] User user)
         {
-            return _userService.Create(user);
+            return Created("test", _userService.Create(user));
         }
 
-        [HttpPut("{id}")]
-        public void Put([FromBody] User user) { }
+        [HttpPut("{id:int}")]
+        public User Put([FromBody] User user)
+        {
+            return _userService.Modify(user);
+        }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id) { }
+        [HttpDelete("{id:int}")]
+        public User Delete(int id)
+        {
+            return _userService.Delete(id);
+        }
     }
 }
