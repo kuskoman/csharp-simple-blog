@@ -134,3 +134,12 @@ _NCrunch*
 
 # Published app
 out/
+
+# Git files
+.git
+.gitignore
+
+# Configuration files
+.dockerignore
+Dockerfile
+.editorconfig
