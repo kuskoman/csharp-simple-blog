@@ -1,6 +1,6 @@
 namespace SimpleBlog.Models
 {
-    enum UserRole
+    public enum UserRole
     {
         Writer,
         Commenter
