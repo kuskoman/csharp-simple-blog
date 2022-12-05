@@ -62,6 +62,9 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
+# VSCode
+.vscode
+
 # Click-Once directory
 publish/
 
