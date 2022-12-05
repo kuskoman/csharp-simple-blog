@@ -1,19 +1,12 @@
 using SimpleBlog.Database;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using SimpleBlog.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddMyDependencyGroup();
 builder.Services.AddControllers();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(
-        JwtBearerDefaults.AuthenticationScheme,
-        options => builder.Configuration.Bind("JwtSettings", options)
-    );
+AuthSetupUtil.SetupAuth(builder);
 
 builder.Services.AddSqlite<BlogContext>("Data Source=blog.db;Cache=Shared");
 
@@ -33,6 +26,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
