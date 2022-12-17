@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.AspNetCore.Identity;
+using SimpleBlog.Models;
+using SimpleBlog.Database;
 
 namespace SimpleBlog.Utils
 {
@@ -9,30 +9,14 @@ namespace SimpleBlog.Utils
         public static void SetupAuth(WebApplicationBuilder builder)
         {
             builder.Services
-                .AddAuthentication(options =>
+                .AddIdentity<User, Role>(options =>
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.Password.RequiredLength = 8;
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1.0);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
                 })
-                .AddJwtBearer(options =>
-                {
-                    var key = builder.Configuration["Jwt:Key"];
-                    if (key == null || key == "")
-                    {
-                        throw new InvalidOperationException("You must provide JWT signing key");
-                    }
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                        ValidAudience = builder.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = false,
-                        ValidateIssuerSigningKey = true
-                    };
-                });
+                .AddEntityFrameworkStores<BlogContext>()
+                .AddDefaultTokenProviders();
         }
     }
 }
