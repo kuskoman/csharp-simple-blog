@@ -1,17 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace SimpleBlog.Models
 {
-    public enum UserRole
+    public class User: IdentityUser<UInt32>
     {
-        Writer,
-        Commenter
-    }
-
-    public class User
-    {
-        public int Id { get; set; }
         public string? Name { get; set; }
-        public string? Email { get; set; }
         public string? PasswordDigest { get; set; }
-        public UserRole Role { get; set; }
     }
 }

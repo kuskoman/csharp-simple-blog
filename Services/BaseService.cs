@@ -17,12 +17,12 @@ namespace SimpleBlog.Services
             return _repository.GetAll();
         }
 
-        public Model? Get(int id)
+        public Model? Get(uint id)
         {
             return _repository.Get(id);
         }
 
-        public Model Delete(int id)
+        public Model Delete(uint id)
         {
             return _repository.Delete(id);
         }

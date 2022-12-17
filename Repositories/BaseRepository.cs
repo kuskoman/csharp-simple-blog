@@ -21,12 +21,12 @@ namespace SimpleBlog.Repositories
             return _dbSet.ToList();
         }
 
-        public Model? Get(int id)
+        public Model? Get(uint id)
         {
             return _dbSet.Find(id);
         }
 
-        public Model Delete(int id)
+        public Model Delete(uint id)
         {
             var dbModel = _dbSet.Find(id);
             if (dbModel == null)

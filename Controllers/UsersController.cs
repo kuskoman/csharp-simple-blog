@@ -19,7 +19,7 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<User> Get(int id)
+        public ActionResult<User> Get(uint id)
         {
             var user = _userService.Get(id);
             if (user == null)
@@ -48,7 +48,7 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public User Delete(int id)
+        public User Delete(uint id)
         {
             return _userService.Delete(id);
         }
