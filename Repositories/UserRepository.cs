@@ -23,6 +23,11 @@ namespace SimpleBlog.Repositories
             return _blogContext.Users!.Find(id);
         }
 
+        public User? GetByEmail(string email)
+        {
+            return _blogContext.Users!.Find(new User { Email = email });
+        }
+
         public User Delete(int id)
         {
             var dbUser = _blogContext.Users!.Find(id);

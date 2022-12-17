@@ -13,8 +13,14 @@ namespace SimpleBlog.Dto
 
         [Required]
         public string? Password { get; set; }
+    }
+
+    public class UserLoginDto
+    {
+        [Required]
+        public string? Email { get; set; }
 
         [Required]
-        public UserRole Role { get; set; } = UserRole.Commenter;
+        public string? Password { get; set; }
     }
 }

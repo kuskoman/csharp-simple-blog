@@ -23,6 +23,11 @@ namespace SimpleBlog.Services
             return _repository.Get(id);
         }
 
+        public User? GetByEmail(string email)
+        {
+            return _repository.GetByEmail(email);
+        }
+
         public User Delete(int id)
         {
             return _repository.Delete(id);
