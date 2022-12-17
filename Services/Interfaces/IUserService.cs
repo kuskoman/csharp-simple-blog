@@ -5,6 +5,6 @@ namespace SimpleBlog.Services.Interfaces
 {
     public interface IUserService : IBaseService<User>
     {
-        public User GetByEmail(string email);
+        public User? GetByEmail(string email);
     }
 }
