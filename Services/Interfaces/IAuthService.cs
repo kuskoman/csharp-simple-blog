@@ -7,5 +7,6 @@ namespace SimpleBlog.Services.Interfaces
     {
         public Task<IdentityResult> Signup(UserCreateDto model);
         public Task<SignInResult> Login(UserLoginDto model);
+        public Task Signout();
     }
 }

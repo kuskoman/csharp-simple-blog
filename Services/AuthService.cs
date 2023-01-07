@@ -9,11 +9,17 @@ namespace SimpleBlog.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly UserService _userService;
 
-        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthService(
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            UserService userService
+        )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         public async Task<IdentityResult> Signup(UserCreateDto userDto)
@@ -29,7 +35,12 @@ namespace SimpleBlog.Services
 
         public async Task<SignInResult> Login(UserLoginDto loginDto)
         {
-            var loginUser = new User() { Email = loginDto.Email };
+            var loginUser = _userService.GetByEmail(loginDto.Email);
+            if (loginUser == null)
+            {
+                throw new UnauthorizedAccessException("Invalid user email");
+            }
+
             if (loginDto.Password == null)
             {
                 throw new Exception("User DTO not validated properly: missing password");
@@ -40,6 +51,11 @@ namespace SimpleBlog.Services
                 true,
                 true
             );
+        }
+
+        public async Task Signout()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

@@ -2,26 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleBlog.Controllers
 {
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly ILogger<AuthController> _logger;
         private readonly IAuthService _authService;
-        private readonly IUserService _userService;
 
-        public AuthController(
-            ILogger<AuthController> logger,
-            IAuthService authService,
-            IUserService userService
-        )
+        public AuthController(ILogger<AuthController> logger, IAuthService authService)
         {
             _logger = logger;
             _authService = authService;
-            _userService = userService;
         }
 
         [HttpPost("signup")]
@@ -38,7 +34,7 @@ namespace SimpleBlog.Controllers
             return Created("", signupResult);
         }
 
-        [HttpPost("signup")]
+        [HttpPost("login")]
         [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Microsoft.AspNetCore.Identity.SignInResult>> Login(
@@ -53,6 +49,13 @@ namespace SimpleBlog.Controllers
             }
 
             return Ok(loginResult);
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> Signout()
+        {
+            await _authService.Signout();
+            return Ok();
         }
     }
 }
