@@ -8,6 +8,8 @@ namespace SimpleBlog.Utils
     {
         public static void SetupAuth(WebApplicationBuilder builder)
         {
+            builder.Services.AddDistributedMemoryCache();
+
             builder.Services
                 .AddIdentity<User, Role>(options =>
                 {
@@ -17,6 +19,7 @@ namespace SimpleBlog.Utils
                 })
                 .AddEntityFrameworkStores<BlogContext>()
                 .AddDefaultTokenProviders();
+            builder.Services.AddSession();
         }
     }
 }

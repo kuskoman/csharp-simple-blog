@@ -1,4 +1,3 @@
-using SimpleBlog.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimpleBlog.Dto
@@ -11,7 +10,12 @@ namespace SimpleBlog.Dto
         [Required]
         public string? Email { get; set; }
 
+        /// <summary>
+        /// A strong password that is already 7 characters long
+        /// </summary>
+        /// <example>AStrongPassword946!</example>
         [Required]
+        [MinLength(7)]
         public string? Password { get; set; }
     }
 

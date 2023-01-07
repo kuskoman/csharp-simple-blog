@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace SimpleBlog.Controllers
 {

@@ -15,6 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
 
+            services.AddScoped<IAuthService, AuthService>();
+
             return services;
         }
     }
