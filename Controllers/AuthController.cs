@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Dto;
+using Microsoft.AspNetCore.Identity;
 
 namespace SimpleBlog.Controllers
 {
@@ -11,16 +12,22 @@ namespace SimpleBlog.Controllers
     {
         private readonly ILogger<AuthController> _logger;
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public AuthController(ILogger<AuthController> logger, IAuthService authService)
+        public AuthController(
+            ILogger<AuthController> logger,
+            IAuthService authService,
+            IUserService userService
+        )
         {
             _logger = logger;
             _authService = authService;
+            _userService = userService;
         }
 
         [HttpPost("signup")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status422UnprocessableEntity)]
         public async Task<ActionResult<User>> Register([FromBody] UserCreateDto user)
         {
             _logger.LogTrace($"Received login request for user {user.Email}");
@@ -29,7 +36,7 @@ namespace SimpleBlog.Controllers
             {
                 return UnprocessableEntity(signupResult);
             }
-            return Created("test", signupResult);
+            return Created("", signupResult);
         }
     }
 }

@@ -4,7 +4,7 @@ using SimpleBlog.Models;
 
 namespace SimpleBlog.Database
 {
-    public class BlogContext : IdentityDbContext<User, Role, UInt32>
+    public class BlogContext : IdentityDbContext<User, Role, uint>
     {
         public BlogContext(DbContextOptions<BlogContext> options) : base(options) { }
 

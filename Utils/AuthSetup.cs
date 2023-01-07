@@ -16,6 +16,7 @@ namespace SimpleBlog.Utils
                     options.Password.RequiredLength = 8;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1.0);
                     options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<BlogContext>()
                 .AddDefaultTokenProviders();
