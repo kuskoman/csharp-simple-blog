@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using SimpleBlog.Models;
+using Microsoft.AspNetCore.Identity;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Dto;
-using Microsoft.AspNetCore.Identity;
 
 namespace SimpleBlog.Controllers
 {
@@ -28,15 +27,32 @@ namespace SimpleBlog.Controllers
         [HttpPost("signup")]
         [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status422UnprocessableEntity)]
-        public async Task<ActionResult<User>> Register([FromBody] UserCreateDto user)
+        public async Task<ActionResult<IdentityResult>> Register([FromBody] UserCreateDto user)
         {
-            _logger.LogTrace($"Received login request for user {user.Email}");
+            _logger.LogTrace($"Received signup request for user {user.Email}");
             var signupResult = await _authService.Signup(user);
             if (!signupResult.Succeeded)
             {
                 return UnprocessableEntity(signupResult);
             }
             return Created("", signupResult);
+        }
+
+        [HttpPost("signup")]
+        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Microsoft.AspNetCore.Identity.SignInResult>> Login(
+            [FromBody] UserLoginDto loginDto
+        )
+        {
+            _logger.LogTrace($"Received login request for user {loginDto.Email}");
+            var loginResult = await _authService.Login(loginDto);
+            if (!loginResult.Succeeded)
+            {
+                return Unauthorized(loginResult);
+            }
+
+            return Ok(loginResult);
         }
     }
 }
