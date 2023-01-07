@@ -16,7 +16,7 @@ namespace SimpleBlog.Services
 
         public async Task<IdentityResult> Signup(UserCreateDto userDto)
         {
-            var user = new User() { Email = userDto.Email, Name = userDto.Name };
+            var user = new User() { Email = userDto.Email, UserName = userDto.Name };
 
             if (userDto.Password == null)
             {

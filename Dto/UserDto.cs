@@ -8,12 +8,9 @@ namespace SimpleBlog.Dto
         public string? Name { get; set; }
 
         [Required]
+        [EmailAddress]
         public string? Email { get; set; }
 
-        /// <summary>
-        /// A strong password that is already 7 characters long
-        /// </summary>
-        /// <example>AStrongPassword946!</example>
         [Required]
         [MinLength(7)]
         public string? Password { get; set; }
@@ -22,6 +19,7 @@ namespace SimpleBlog.Dto
     public class UserLoginDto
     {
         [Required]
+        [EmailAddress]
         public string? Email { get; set; }
 
         [Required]
