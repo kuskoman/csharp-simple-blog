@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
+using SimpleBlog.Dto;
 
 namespace SimpleBlog.Controllers
 {
@@ -18,38 +19,47 @@ namespace SimpleBlog.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<User> Get(uint id)
+        public ActionResult<UserResponseDto> Get(uint id)
         {
             var user = _userService.Get(id);
             if (user == null)
             {
                 return NotFound($"Could not find user with id ${id}");
             }
-            return Ok(user);
+            return Ok(new UserResponseDto(user));
         }
 
         [HttpGet("")]
-        public ActionResult<IEnumerable<User>> Index()
+        public ActionResult<IEnumerable<UserResponseDto>> Index()
         {
-            return _userService.GetAll();
+            return Ok(_userService.GetAll().Select(u => new UserResponseDto(u)));
         }
 
+        // [HttpGet("me")]
+        // public ActionResult<UserResponseDto> Me()
+        // {
+
+        // }
+
         [HttpPost]
-        public ActionResult<User> Create([FromBody] User user)
+        public ActionResult<UserResponseDto> Create([FromBody] User user)
         {
-            return Created("test", _userService.Create(user));
+            var createdUser = _userService.Create(user);
+            return Created("test", new UserResponseDto(createdUser));
         }
 
         [HttpPut("{id:int}")]
-        public User Put([FromBody] User user)
+        public ActionResult<UserResponseDto> Put([FromBody] User user)
         {
-            return _userService.Modify(user);
+            var modifiedUser = _userService.Modify(user);
+            return Ok(new UserResponseDto(modifiedUser));
         }
 
         [HttpDelete("{id:int}")]
-        public User Delete(uint id)
+        public ActionResult<UserResponseDto> Delete(uint id)
         {
-            return _userService.Delete(id);
+            var deletedUser = _userService.Delete(id);
+            return Ok(new UserResponseDto(deletedUser));
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
+using SimpleBlog.Models;
+
 namespace SimpleBlog.Dto
 {
     public class UserCreateDto
@@ -24,5 +26,21 @@ namespace SimpleBlog.Dto
 
         [Required]
         public string? Password { get; set; }
+    }
+
+    public class UserResponseDto
+    {
+        public UserResponseDto(User user)
+        {
+            Email = user.Email!;
+            Name = user.UserName!;
+            Id = user.Id!;
+        }
+
+        [EmailAddress]
+        public string Email { get; }
+
+        public string Name { get; }
+        public uint Id { get; }
     }
 }
