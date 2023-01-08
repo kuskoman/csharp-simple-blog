@@ -144,3 +144,8 @@ _NCrunch*
 
 # Published app
 out/
+
+# Env files
+.env
+.env.*
+!.env.example

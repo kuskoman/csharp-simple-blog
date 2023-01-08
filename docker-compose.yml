@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${DB_PASSWORD:-StrongPassword1}
+    healthcheck:
+      test:
+        - "CMD"
+        - "/bin/bash"
+        - "-c"
+        - 'echo "$$SA_PASSWORD" | /opt/mssql-tools/bin/sqlcmd -Usa -Q "select 1"'
+      interval: 2s
+      timeout: 2s
+      retries: 5
+    ports:
+      - "${DB_PORT:-1433}:1433"
+    volumes:
+      - mssql_dir:/var/opt/mssql
+
+volumes:
+  ? mssql_dir
