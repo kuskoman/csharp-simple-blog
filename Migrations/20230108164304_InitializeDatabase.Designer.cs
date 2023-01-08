@@ -12,8 +12,8 @@ using SimpleBlog.Database;
 namespace SimpleBlog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20230108162646_initialize_database")]
-    partial class initializedatabase
+    [Migration("20230108164304_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
