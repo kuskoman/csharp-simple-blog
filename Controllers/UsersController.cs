@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleBlog.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
