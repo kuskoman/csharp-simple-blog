@@ -9,12 +9,12 @@ namespace SimpleBlog.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
         public AuthService(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            UserService userService
+            IUserService userService
         )
         {
             _userManager = userManager;
@@ -28,13 +28,17 @@ namespace SimpleBlog.Services
 
             if (userDto.Password == null)
             {
-                throw new Exception("User DTO not validated properly: missing password");
+                throw new ArgumentNullException("User DTO not validated properly: missing password");
             }
             return await _userManager.CreateAsync(user, userDto.Password);
         }
 
         public async Task<SignInResult> Login(UserLoginDto loginDto)
         {
+            if (loginDto.Email == null)
+            {
+                throw new ArgumentNullException("Login DTO not validated properly: missing email");
+            }
             var loginUser = _userService.GetByEmail(loginDto.Email);
             if (loginUser == null)
             {
