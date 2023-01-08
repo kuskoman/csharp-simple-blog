@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMyDependencyGroup();
 builder.Services.AddControllers();
-builder.Services.AddSqlite<BlogContext>("Data Source=blog.db;Cache=Shared");
+builder.Services.AddSqlServer<BlogContext>(builder.Configuration.GetConnectionString("Database"));
 builder.Services.AddEndpointsApiExplorer();
 
 AuthSetupUtil.BuildAuth(builder);
