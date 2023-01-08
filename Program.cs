@@ -6,28 +6,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMyDependencyGroup();
 builder.Services.AddControllers();
 
-AuthSetupUtil.SetupAuth(builder);
+AuthSetupUtil.BuildAuth(builder);
 
 builder.Services.AddSqlite<BlogContext>("Data Source=blog.db;Cache=Shared");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-SwaggerSetupUtil.SetupSwagger(builder);
+SwaggerSetupUtil.BuildSwagger(builder);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    SwaggerSetupUtil.SetupSwaggerUi(app);
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
+AuthSetupUtil.SetupAppAuth(app);
 
 app.MapControllers();
 
