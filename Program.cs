@@ -18,7 +18,5 @@ if (app.Environment.IsDevelopment())
     SwaggerSetupUtil.SetupSwaggerUi(app);
 }
 
-AuthSetupUtil.SetupAppAuth(app);
-
 app.MapControllers();
 app.Run();

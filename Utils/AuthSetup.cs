@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
 using SimpleBlog.Models;
 using SimpleBlog.Database;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SimpleBlog.Utils
 {
@@ -34,13 +37,21 @@ namespace SimpleBlog.Utils
             {
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(7);
-            }); ;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToLogin = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+                options.Events.OnRedirectToLogout = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+                options.Events.OnRedirectToAccessDenied = ctx => HandleRedirect(ctx, HttpStatusCode.Forbidden);
+                options.Events.OnRedirectToReturnUrl = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+            });
         }
 
-        public static void SetupAppAuth(WebApplication app)
+        private static Task<int> HandleRedirect(RedirectContext<CookieAuthenticationOptions> ctx, HttpStatusCode code)
         {
-            app.UseAuthentication();
-            app.UseAuthorization();
+            ctx.Response.StatusCode = (int)code;
+            ctx.Response.WriteAsync("{\"error\": " + code + "}");
+            return Task.FromResult(0);
         }
     }
 }
