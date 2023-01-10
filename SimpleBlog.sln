@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog", "SimpleBlog\SimpleBlog.csproj", "{761146A7-3474-4907-B8BA-B9B22F30915D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.test", "SimpleBlog.test\SimpleBlog.test.csproj", "{31530015-5092-4CDF-86DE-9B10536DE8DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Test", "SimpleBlog.Test\SimpleBlog.Test.csproj", "{31530015-5092-4CDF-86DE-9B10536DE8DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
