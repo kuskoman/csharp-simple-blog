@@ -1,5 +1,4 @@
 using SimpleBlog.Database;
-using SimpleBlog.Models;
 using SimpleBlog.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
