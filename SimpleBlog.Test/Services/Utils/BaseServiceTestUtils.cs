@@ -36,7 +36,7 @@ namespace SimpleBlog.Test.Services.Utils
             Service = service;
         }
 
-        private Mock<IBaseRepository<BaseModelMock>> GetRepositoryMock()
+        private static Mock<IBaseRepository<BaseModelMock>> GetRepositoryMock()
         {
             var repository = new Mock<IBaseRepository<BaseModelMock>>();
             return repository;

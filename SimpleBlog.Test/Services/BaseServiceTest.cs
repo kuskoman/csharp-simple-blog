@@ -25,5 +25,18 @@ namespace SimpleBlog.Test.Services
             Assert.Equal(returnedUsers, repoUsers);
             RepoMock.Verify(repo => repo.GetAll(), Times.Once);
         }
+
+        [Fact]
+        public void TestGet()
+        {
+            var modelMock = new BaseModelMock();
+
+            RepoMock.Setup(repo => repo.Get(It.IsAny<uint>())).Returns(modelMock);
+
+            uint userId = 2;
+            var returnedUser = Service.Get(userId);
+            Assert.Equal(returnedUser, modelMock);
+            RepoMock.Verify(repo => repo.Get(It.Is<uint>(arg => arg.Equals(userId))), Times.Once);
+        }
     }
 }
