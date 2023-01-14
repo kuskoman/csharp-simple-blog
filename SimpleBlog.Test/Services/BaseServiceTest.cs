@@ -38,5 +38,57 @@ namespace SimpleBlog.Test.Services
             Assert.Equal(returnedUser, modelMock);
             RepoMock.Verify(repo => repo.Get(It.Is<uint>(arg => arg.Equals(userId))), Times.Once);
         }
+
+        [Fact]
+        public void TestDelete()
+        {
+            var modelMock = new BaseModelMock();
+
+            RepoMock.Setup(repo => repo.Delete(It.IsAny<uint>())).Returns(modelMock);
+
+            uint userId = 2;
+            var returnedUser = Service.Delete(userId);
+            Assert.Equal(returnedUser, modelMock);
+            RepoMock.Verify(
+                repo => repo.Delete(It.Is<uint>(arg => arg.Equals(userId))),
+                Times.Once
+            );
+        }
+
+        [Fact]
+        public void TestCreate()
+        {
+            var createModelMock = new BaseModelMock();
+            var returnedModelMock = new BaseModelMock();
+
+            RepoMock
+                .Setup(repo => repo.Create(It.IsAny<BaseModelMock>()))
+                .Returns(returnedModelMock);
+
+            var returnedUser = Service.Create(createModelMock);
+            Assert.Equal(returnedUser, returnedModelMock);
+            RepoMock.Verify(
+                repo => repo.Create(It.Is<BaseModelMock>(arg => arg.Equals(createModelMock))),
+                Times.Once
+            );
+        }
+
+        [Fact]
+        public void TestModify()
+        {
+            var createModelMock = new BaseModelMock();
+            var returnedModelMock = new BaseModelMock();
+
+            RepoMock
+                .Setup(repo => repo.Modify(It.IsAny<BaseModelMock>()))
+                .Returns(returnedModelMock);
+
+            var returnedUser = Service.Modify(createModelMock);
+            Assert.Equal(returnedUser, returnedModelMock);
+            RepoMock.Verify(
+                repo => repo.Modify(It.Is<BaseModelMock>(arg => arg.Equals(createModelMock))),
+                Times.Once
+            );
+        }
     }
 }
