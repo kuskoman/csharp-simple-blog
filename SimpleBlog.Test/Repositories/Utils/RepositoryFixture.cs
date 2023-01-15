@@ -12,7 +12,7 @@ namespace SimpleBlog.Test.Repositories.Utils
         public RepositoryFixture()
         {
             DbSetMock = new Mock<DbSet<Model>>();
-            ContextMock = new Mock<BlogContext>(new Mock<DbContextOptions<BlogContext>>().Object);
+            ContextMock = new Mock<BlogContext>(new DbContextOptions<BlogContext>());
         }
     }
 
