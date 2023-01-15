@@ -28,7 +28,7 @@ namespace SimpleBlog.Services
 
             if (userDto.Password == null)
             {
-                throw new ArgumentNullException("User DTO not validated properly: missing password");
+                throw new ArgumentNullException(nameof(userDto.Password));
             }
             return await _userManager.CreateAsync(user, userDto.Password);
         }
@@ -37,7 +37,7 @@ namespace SimpleBlog.Services
         {
             if (loginDto.Email == null)
             {
-                throw new ArgumentNullException("Login DTO not validated properly: missing email");
+                throw new ArgumentNullException(nameof(loginDto.Email));
             }
             var loginUser = _userService.GetByEmail(loginDto.Email);
             if (loginUser == null)
