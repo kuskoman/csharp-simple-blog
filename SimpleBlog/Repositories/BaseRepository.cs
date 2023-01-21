@@ -1,10 +1,11 @@
 using SimpleBlog.Database;
 using SimpleBlog.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Models.Interfaces;
 
 namespace SimpleBlog.Repositories
 {
-    public class BaseRepository<Model> : IBaseRepository<Model> where Model : class
+    public class BaseRepository<Model> : IBaseRepository<Model> where Model : class, IModel
     {
         protected readonly DbSet<Model> _dbSet;
         protected readonly BlogContext _ctx;
@@ -48,7 +49,7 @@ namespace SimpleBlog.Repositories
 
         public Model Modify(Model newModel)
         {
-            var oldModel = _dbSet.Find(newModel);
+            var oldModel = _dbSet.Find(newModel.Id);
             if (oldModel == null)
             {
                 throw new ArgumentException("Could not find model with given id");

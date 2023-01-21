@@ -10,7 +10,7 @@ namespace SimpleBlog.Repositories
 
         public User? GetByEmail(string email)
         {
-            return _dbSet.Where(u => u.Email == email).Single();
+            return _dbSet.Where(u => u.Email == email).SingleOrDefault();
         }
     }
 }

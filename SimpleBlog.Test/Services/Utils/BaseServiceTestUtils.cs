@@ -3,10 +3,11 @@ using SimpleBlog.Repositories.Interfaces;
 using SimpleBlog.Repositories;
 using SimpleBlog.Database;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Models.Interfaces;
 
 namespace SimpleBlog.Test.Services.Utils
 {
-    public class BaseModelMock
+    public class BaseModelMock : IModel
     {
         public uint Id { get; set; }
     }
