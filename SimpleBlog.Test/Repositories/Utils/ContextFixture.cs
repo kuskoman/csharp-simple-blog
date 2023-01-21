@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace SimpleBlog.Test.Repositories.Utils
 {
-    public class DbContextFixture
+    public class DbContextFixture : IDisposable
     {
         public BlogContext Context { get; }
 
         public DbContextFixture()
         {
-            var dbName = RandomString(15);
+            var dbNameSuffix = RandomString(15);
             var contextOptions = new DbContextOptionsBuilder<BlogContext>()
-                .UseInMemoryDatabase($"DbContextFixture-{dbName}")
+                .UseInMemoryDatabase($"DbContextFixture-{dbNameSuffix}")
                 .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
                 .Options;
 
@@ -22,13 +22,18 @@ namespace SimpleBlog.Test.Repositories.Utils
             Context.Database.EnsureCreated();
         }
 
-        private static readonly Random s_random = new Random();
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
+
+        private static readonly Random Random = new Random();
 
         private static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(
-                Enumerable.Repeat(chars, length).Select(s => s[s_random.Next(s.Length)]).ToArray()
+                Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray()
             );
         }
     }
