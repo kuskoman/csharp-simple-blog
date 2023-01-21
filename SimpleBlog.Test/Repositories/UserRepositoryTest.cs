@@ -6,13 +6,14 @@ using SimpleBlog.Test.Repositories.Utils;
 
 namespace SimpleBlog.Test.Repositories
 {
-    public class UserRepositoryTest : IClassFixture<DbContextFixture>
+    public class UserRepositoryTest
     {
         private readonly BlogContext _context;
         private readonly IUserRepository _repository;
 
-        public UserRepositoryTest(DbContextFixture fixture)
+        public UserRepositoryTest()
         {
+            var fixture = new DbContextFixture();
             _context = fixture.Context;
             _repository = new UserRepository(_context);
         }
@@ -34,7 +35,7 @@ namespace SimpleBlog.Test.Repositories
         [Fact]
         public void TestGet()
         {
-            var choosenOne = new User() { Id = 2, Name = "Choosen one" };
+            var choosenOne = new User() { Name = "Choosen one", Id = 2 };
             var users = new List<User>()
             {
                 new User() { Id = 1 },
