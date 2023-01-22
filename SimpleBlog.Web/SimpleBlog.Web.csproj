@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
-    <SpaProxyServerUrl>https://localhost:44467</SpaProxyServerUrl>
-    <SpaProxyLaunchCommand>yarn start</SpaProxyLaunchCommand>
+    <SpaProxyServerUrl>http://localhost:8080</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>yarn serve</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
