@@ -50,55 +50,33 @@ namespace SimpleBlog.Tests
             Assert.Equal(expectedHttpCode, unprocessableEntityResult?.StatusCode ?? 0);
         }
 
-        // [Fact]
-        // public async Task Login_WithValidUser_ReturnsOk()
-        // {
-        //     var user = new UserLoginDto();
-        //     var identityResult = Microsoft.AspNetCore.Identity.SignInResult.Failed;
-        //     _mockAuthService.Setup(x => x.Login(user)).ReturnsAsync(identityResult);
+        [Fact]
+        public async Task Login_WithValidUser_ReturnsOk()
+        {
+            var user = new UserLoginDto();
+            var identityResult = Microsoft.AspNetCore.Identity.SignInResult.Success;
+            _mockAuthService.Setup(x => x.Login(user)).ReturnsAsync(identityResult);
 
-        //     var result = await _controller.Login(user);
+            var result = await _controller.Login(user);
 
-        //     var okResult = Assert.IsType<OkObjectResult>(result);
-        //     Assert.Equal(identityResult, okResult.Value);
-        // }
+            Assert.IsType<ActionResult<Microsoft.AspNetCore.Identity.SignInResult>>(result);
+            Assert.NotNull(result.Result);
+            Assert.IsType<OkObjectResult>(result.Result);
+        }
 
-        // [Fact]
-        // public async Task Login_WithInvalidUser_ReturnsUnauthorized()
-        // {
-        //     var user = new UserLoginDto();
+        [Fact]
+        public async Task Login_WithInvalidUser_ReturnsUnauthorized()
+        {
+            var user = new UserLoginDto();
 
-        //     var identityResult = Microsoft.AspNetCore.Identity.SignInResult.Failed;
-        //     _mockAuthService.Setup(x => x.Login(user)).ReturnsAsync(identityResult);
+            var identityResult = Microsoft.AspNetCore.Identity.SignInResult.Failed;
+            _mockAuthService.Setup(x => x.Login(user)).ReturnsAsync(identityResult);
 
-        //     var result = await _controller.Login(user);
+            var result = await _controller.Login(user);
 
-        //     var unauthorizedResult = Assert.IsType<UnauthorizedObjectResult>(result);
-        //     Assert.Equal(identityResult, unauthorizedResult.Value);
-        // }
-
-        // [Fact]
-        // public async Task RegisterCallsAuthServiceSignup()
-        // {
-        //     var user = new UserCreateDto();
-        //     _mockAuthService.Setup(x => x.Signup(user)).ReturnsAsync(IdentityResult.Success);
-        //     var result = await _controller.Register(user);
-
-        //     _mockAuthService.Verify(x => x.Signup(user), Times.Once);
-        //     Assert.IsType<CreatedResult>(result);
-        // }
-
-        // [Fact]
-        // public async Task LoginCallsAuthServiceLogin()
-        // {
-        //     var user = new UserLoginDto();
-        //     _mockAuthService
-        //         .Setup(x => x.Login(user))
-        //         .ReturnsAsync(Microsoft.AspNetCore.Identity.SignInResult.Success);
-        //     var result = await _controller.Login(user);
-
-        //     _mockAuthService.Verify(x => x.Login(user), Times.Once);
-        //     Assert.IsType<OkObjectResult>(result);
-        // }
+            Assert.IsType<ActionResult<Microsoft.AspNetCore.Identity.SignInResult>>(result);
+            Assert.NotNull(result.Result);
+            Assert.IsType<UnauthorizedObjectResult>(result.Result);
+        }
     }
 }
