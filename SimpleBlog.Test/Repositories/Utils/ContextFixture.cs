@@ -26,6 +26,7 @@ namespace SimpleBlog.Test.Repositories.Utils
         public void Dispose()
         {
             Context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         private static readonly Random Random = new Random();
