@@ -4,3 +4,4 @@ export const enum THEME_NAMES {
   LIGHT = "light",
 }
 export const THEMES = [THEME_NAMES.DARK, THEME_NAMES.LIGHT] as const;
+export const THEME_STORE = "themes";

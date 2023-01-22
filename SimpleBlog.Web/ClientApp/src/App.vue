@@ -1,11 +1,6 @@
 <template>
   <v-app :theme="theme">
-    <v-app-bar title="SimpleBlog" color="primary" prominent>
-      <v-spacer></v-spacer>
-      <v-btn :prepend-icon="getThemeIcon()" @click="onClick">
-        Toggle Theme
-      </v-btn>
-    </v-app-bar>
+    <application-header></application-header>
     <v-main>
       <v-container>
         <router-view />
@@ -16,21 +11,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { useStore } from "vuex";
+import { ThemeState, THEME_STORE } from "./store/theme";
 
-const theme = ref("dark");
+const store = useStore<ThemeState>(THEME_STORE);
 
-const onClick = () => {
-  theme.value = theme.value === "light" ? "dark" : "light";
-};
-
-const getThemeIcon = () => {
-  return theme.value === "light" ? "mdi-weather-sunny" : "mdi-weather-night";
-};
+const theme = computed(() => store.state.theme);
 </script>
 
 <script lang="ts">
 import ApplicationFooter from "@/components/Application/Footer.vue";
+import ApplicationHeader from "@/components/Application/Header.vue";
+
+import { computed } from "vue";
+import { RouterView } from "vue-router";
 
 export default {
   data: () => ({
@@ -43,6 +37,7 @@ export default {
   }),
   components: {
     ApplicationFooter,
+    ApplicationHeader,
   },
 };
 </script>
