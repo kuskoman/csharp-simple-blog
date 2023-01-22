@@ -106,7 +106,7 @@ namespace SimpleBlog.Test.Repositories
         public void TestModifyUserExists()
         {
             var userToModify = new User() { Id = 2, Name = "Original name" };
-            var modifiedUser = new User() { Id = 2, Name = "Modified name" };
+            var userUpdateModel = new User() { Id = userToModify.Id, Name = "Modified name" };
             var users = new List<User>()
             {
                 new User() { Id = 1 },
@@ -115,8 +115,15 @@ namespace SimpleBlog.Test.Repositories
 
             CreateUsers(users);
 
-            Assert.Equal(_repository.Modify(modifiedUser), modifiedUser);
-            Assert.Equal(_repository.Get(userToModify.Id), modifiedUser);
+            var updatedUser = _repository.Modify(userUpdateModel);
+
+            Assert.Equal(updatedUser.Id, userToModify.Id);
+            Assert.Equal(updatedUser.Email, userUpdateModel.Email);
+
+            var reloadedModel = _repository.Get(userToModify.Id);
+            Assert.NotNull(reloadedModel);
+            Assert.Equal(reloadedModel.Id, updatedUser.Id);
+            Assert.Equal(reloadedModel.Name, updatedUser.Name);
         }
 
         [Fact]
