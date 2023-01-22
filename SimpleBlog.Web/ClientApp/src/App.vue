@@ -7,17 +7,18 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-card>
+      <v-container>
         <router-view />
-      </v-card>
+      </v-container>
     </v-main>
+    <application-footer></application-footer>
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 
-const theme = ref("light");
+const theme = ref("dark");
 
 const onClick = () => {
   theme.value = theme.value === "light" ? "dark" : "light";
@@ -29,6 +30,8 @@ const getThemeIcon = () => {
 </script>
 
 <script lang="ts">
+import ApplicationFooter from "@/components/Application/Footer.vue";
+
 export default {
   data: () => ({
     drawer: false,
@@ -38,6 +41,9 @@ export default {
       { title: "About", value: "about" },
     ],
   }),
+  components: {
+    ApplicationFooter,
+  },
 };
 </script>
 
