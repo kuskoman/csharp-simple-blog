@@ -14,6 +14,7 @@ namespace SimpleBlog.Test.Repositories.Utils
             var contextOptions = new DbContextOptionsBuilder<BlogContext>()
                 .UseInMemoryDatabase($"DbContextFixture-{dbNameSuffix}")
                 .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                .EnableSensitiveDataLogging()
                 .Options;
 
             Context = new BlogContext(contextOptions);
