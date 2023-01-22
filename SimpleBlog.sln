@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog", "SimpleBlog\Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Test", "SimpleBlog.Test\SimpleBlog.Test.csproj", "{31530015-5092-4CDF-86DE-9B10536DE8DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBlog.Web", "SimpleBlog.Web\SimpleBlog.Web.csproj", "{A09774C6-062B-47D7-B7CF-80A8477BA775}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{31530015-5092-4CDF-86DE-9B10536DE8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31530015-5092-4CDF-86DE-9B10536DE8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31530015-5092-4CDF-86DE-9B10536DE8DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A09774C6-062B-47D7-B7CF-80A8477BA775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A09774C6-062B-47D7-B7CF-80A8477BA775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A09774C6-062B-47D7-B7CF-80A8477BA775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A09774C6-062B-47D7-B7CF-80A8477BA775}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
