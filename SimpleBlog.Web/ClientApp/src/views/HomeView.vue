@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <v-icon icon="mdi-home" />
+    <v-icon icon="mdi-home" />
+    <v-icon icon="mdi-home" />
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
