@@ -7,9 +7,12 @@ import {
   ApplicationAlert,
 } from "./alert.interfaces";
 import { v4 as uuidv4 } from "uuid";
+import { ALERT_TYPE } from "./alert.consts";
 
 const state: AlertState = {
-  alerts: [],
+  alerts: [
+    { title: "TestTitle", body: "TestBody", type: ALERT_TYPE.INFO, id: "1" },
+  ],
 };
 
 const getters: AlertGetters = {

@@ -12,10 +12,16 @@
 <script lang="ts" setup>
 import { useStore } from "vuex";
 import { Ref } from "vue";
-import { AlertState, AlertWithId, ALERT_ACTION_TYPES } from "../../store/alert";
+import {
+  AlertState,
+  AlertWithId,
+  ALERT_ACTION_TYPES,
+  ALERT_STORE,
+} from "../../store/alert";
 
 const store = useStore<AlertState>();
-const alerts: Ref<AlertWithId[]> = store.getters[ALERT_ACTION_TYPES.GET_ALERTS];
+const getterName = `${ALERT_STORE}/${ALERT_ACTION_TYPES.GET_ALERTS}`;
+const alerts: Ref<AlertWithId[]> = store.getters[getterName];
 </script>
 
 <script lang="ts">
