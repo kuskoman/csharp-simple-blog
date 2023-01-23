@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import {
-  ACTION_TYPES,
+  THEME_ACTION_TYPES,
   ThemeState,
   THEME_STORE,
   THEME_NAMES,
@@ -29,7 +29,7 @@ const getThemeIcon = (theme: Theme) => {
 const themeIcon = computed(() => getThemeIcon(store.state.theme));
 
 const onClick = () => {
-  const actionName = `${THEME_STORE}/${ACTION_TYPES.SWITCH_THEME}`;
+  const actionName = `${THEME_STORE}/${THEME_ACTION_TYPES.SWITCH_THEME}`;
   store.dispatch(actionName);
 };
 </script>

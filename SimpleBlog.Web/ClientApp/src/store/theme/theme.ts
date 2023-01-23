@@ -1,5 +1,5 @@
 import { ActionContext, Module, MutationTree } from "vuex";
-import { ACTION_TYPES } from "./theme.action-types";
+import { THEME_ACTION_TYPES } from "./theme.action-types";
 import { THEME_NAMES } from "./theme.consts";
 import { ThemeState, Theme } from "./theme.interfaces";
 import { getInitialTheme, saveTheme } from "./theme.utils";
@@ -15,21 +15,21 @@ const getters = {
 };
 
 const mutations: MutationTree<ThemeState> = {
-  [ACTION_TYPES.SET_THEME]: (state: ThemeState, theme: Theme) => {
+  [THEME_ACTION_TYPES.SET_THEME]: (state: ThemeState, theme: Theme) => {
     state.theme = theme;
     saveTheme(state.theme);
   },
 };
 
 const actions = {
-  [ACTION_TYPES.SWITCH_THEME]: ({
+  [THEME_ACTION_TYPES.SWITCH_THEME]: ({
     commit,
     state,
   }: ActionContext<ThemeState, ThemeState>) => {
     const currentTheme = state.theme;
     const newTheme =
       currentTheme === THEME_NAMES.DARK ? THEME_NAMES.LIGHT : THEME_NAMES.DARK;
-    commit(ACTION_TYPES.SET_THEME, newTheme);
+    commit(THEME_ACTION_TYPES.SET_THEME, newTheme);
     return newTheme;
   },
 };

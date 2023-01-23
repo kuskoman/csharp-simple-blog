@@ -1,4 +1,4 @@
-export const enum ACTION_TYPES {
+export const enum THEME_ACTION_TYPES {
   SET_THEME = "setTheme",
   SWITCH_THEME = "switchTheme",
 }
