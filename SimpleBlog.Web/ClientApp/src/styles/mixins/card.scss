@@ -1,0 +1,15 @@
+@mixin square-card {
+  padding: {
+    top: 20px;
+    bottom: 20px;
+    left: 40px;
+    right: 40px;
+  }
+  margin: {
+    top: 20px;
+    bottom: 20px;
+  }
+  border: {
+    radius: 0;
+  }
+}

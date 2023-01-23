@@ -25,20 +25,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import "@/styles/mixins/card.scss";
+
 article {
-  padding: {
-    top: 20px;
-    bottom: 20px;
-    left: 40px;
-    right: 40px;
-  }
-  margin: {
-    top: 20px;
-    bottom: 20px;
-  }
-  border: {
-    radius: 0;
-  }
+  @include square-card;
 
   .author-item {
     font: {

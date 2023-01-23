@@ -15,5 +15,6 @@ export default defineComponent({
 <style scoped lang="scss">
 .application-footer {
   padding: 20px;
+  max-height: 80px;
 }
 </style>
