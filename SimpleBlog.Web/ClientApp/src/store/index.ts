@@ -1,9 +1,15 @@
 import { createStore } from "vuex";
 
-import theme, { THEME_STORE } from "./theme";
+import theme, { ThemeState, THEME_STORE } from "./theme";
 
-export default createStore({
+const store = createStore({
   modules: {
     [THEME_STORE]: theme,
   },
 });
+
+export interface StoreState {
+  [THEME_STORE]: ThemeState;
+}
+
+export default store;

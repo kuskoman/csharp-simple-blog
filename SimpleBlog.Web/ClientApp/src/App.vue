@@ -12,11 +12,10 @@
 
 <script setup lang="ts">
 import { useStore } from "vuex";
-import { ThemeState, THEME_STORE } from "./store/theme";
 
-const store = useStore<ThemeState>(THEME_STORE);
+const store = useStore<StoreState>();
 
-const theme = computed(() => store.state.theme);
+const theme = computed(() => store.state.themes.theme);
 </script>
 
 <script lang="ts">
@@ -25,6 +24,7 @@ import ApplicationHeader from "@/components/Application/Header.vue";
 
 import { computed } from "vue";
 import { RouterView } from "vue-router";
+import { StoreState } from "./store";
 
 export default {
   data: () => ({
