@@ -1,4 +1,4 @@
-import { ActionContext, Module } from "vuex";
+import { ActionContext, ActionTree, Module } from "vuex";
 import { ApiSdk } from "../../lib/ApiSdk";
 import { AUTH_ACTION_TYPES } from "./auth.action-types";
 import { AuthState, RegisterParams } from "./auth.interfaces";
@@ -11,7 +11,7 @@ const getters = {};
 
 const mutations = {};
 
-const actions = {
+const actions: ActionTree<AuthState, AuthState> = {
   [AUTH_ACTION_TYPES.REGISTER]: async (
     { commit, state }: ActionContext<AuthState, AuthState>,
     registerParams: RegisterParams
@@ -23,9 +23,9 @@ const actions = {
 const AuthStoreModule = {
   namespaced: true,
   state,
-  getters: getters,
+  getters,
   actions,
-  mutations: mutations,
+  mutations,
 } satisfies Module<AuthState, AuthState>;
 
 export default AuthStoreModule;
