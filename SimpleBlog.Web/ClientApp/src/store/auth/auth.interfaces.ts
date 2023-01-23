@@ -1,4 +1,4 @@
-import { UserCreateDto } from "simple-blog-api-sdk";
+import { UserCreateDto } from "@/lib/sdk";
 
 export interface AuthState {
   dummyField?: undefined;

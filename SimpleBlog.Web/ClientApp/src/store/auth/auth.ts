@@ -1,5 +1,5 @@
 import { ActionContext, ActionTree, Module } from "vuex";
-import { ApiSdk } from "../../lib/ApiSdk";
+import { ApiClient } from "../../api/ApiClient";
 import { AUTH_ACTION_TYPES } from "./auth.action-types";
 import { AuthState, RegisterParams } from "./auth.interfaces";
 
@@ -16,7 +16,9 @@ const actions: ActionTree<AuthState, AuthState> = {
     { commit, state }: ActionContext<AuthState, AuthState>,
     registerParams: RegisterParams
   ) => {
-    const authResponse = await ApiSdk.postAuthSignup({ body: registerParams });
+    const authResponse = await ApiClient.postAuthSignup({
+      body: registerParams,
+    });
   },
 };
 
