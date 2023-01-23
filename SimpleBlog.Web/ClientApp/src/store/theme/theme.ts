@@ -22,13 +22,9 @@ const mutations: MutationTree<ThemeState> = {
 };
 
 const actions = {
-  [THEME_ACTION_TYPES.SWITCH_THEME]: ({
-    commit,
-    state,
-  }: ActionContext<ThemeState, ThemeState>) => {
+  [THEME_ACTION_TYPES.SWITCH_THEME]: ({ commit, state }: ActionContext<ThemeState, ThemeState>) => {
     const currentTheme = state.theme;
-    const newTheme =
-      currentTheme === THEME_NAMES.DARK ? THEME_NAMES.LIGHT : THEME_NAMES.DARK;
+    const newTheme = currentTheme === THEME_NAMES.DARK ? THEME_NAMES.LIGHT : THEME_NAMES.DARK;
     commit(THEME_ACTION_TYPES.SET_THEME, newTheme);
     return newTheme;
   },

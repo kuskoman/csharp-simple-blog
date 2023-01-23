@@ -2,10 +2,7 @@ import { LOCAL_STORAGE_THEME_KEY, THEMES, THEME_NAMES } from "./theme.consts";
 import { Theme } from "./theme.interfaces";
 
 export const checkBrowserDarkTheme = (): boolean => {
-  return (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
 export const getSavedTheme = () => {
@@ -36,9 +33,7 @@ export const getInitialTheme = (): Theme => {
   return darkPreffered ? THEME_NAMES.DARK : THEME_NAMES.LIGHT;
 };
 
-export const isValidTheme = (
-  possibleTheme: string | Theme
-): possibleTheme is Theme => {
+export const isValidTheme = (possibleTheme: string | Theme): possibleTheme is Theme => {
   const themesArr: string[] = [...THEMES];
   return themesArr.includes(possibleTheme);
 };

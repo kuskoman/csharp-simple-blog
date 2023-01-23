@@ -6,13 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  THEME_ACTION_TYPES,
-  ThemeState,
-  THEME_STORE,
-  THEME_NAMES,
-  Theme,
-} from "@/store/theme";
+import { THEME_ACTION_TYPES, ThemeState, THEME_STORE, THEME_NAMES, Theme } from "@/store/theme";
 import { computed } from "vue";
 import { useStore } from "vuex";
 

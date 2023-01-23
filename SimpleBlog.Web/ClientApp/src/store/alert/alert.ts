@@ -1,11 +1,6 @@
 import { ActionContext, Module } from "vuex";
 import { ALERT_ACTION_TYPES } from "./alert.action-types";
-import {
-  AlertGetters,
-  AlertState,
-  AlertWithId,
-  ApplicationAlert,
-} from "./alert.interfaces";
+import { AlertGetters, AlertState, AlertWithId, ApplicationAlert } from "./alert.interfaces";
 import { v4 as uuidv4 } from "uuid";
 
 const state: AlertState = {
@@ -26,10 +21,7 @@ const mutations = {
 };
 
 const actions = {
-  [ALERT_ACTION_TYPES.ADD_ALERT]: (
-    { commit }: ActionContext<AlertState, AlertState>,
-    alert: ApplicationAlert
-  ) => {
+  [ALERT_ACTION_TYPES.ADD_ALERT]: ({ commit }: ActionContext<AlertState, AlertState>, alert: ApplicationAlert) => {
     const alertWithId: AlertWithId = { ...alert, id: uuidv4() };
     commit(ALERT_ACTION_TYPES.PUSH_ALERT, alertWithId);
   },

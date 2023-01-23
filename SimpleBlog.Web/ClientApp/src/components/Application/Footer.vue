@@ -1,8 +1,6 @@
 <template>
   <v-footer color="primary" class="application-footer">
-    <span class-name="footer-text">
-      Created by Jakub Surdej for zaliczenie przedmiotu
-    </span>
+    <span class-name="footer-text">Created by Jakub Surdej for zaliczenie przedmiotu</span>
   </v-footer>
 </template>
 
