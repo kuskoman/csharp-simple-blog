@@ -14,7 +14,10 @@ namespace SimpleBlog.Utils
 
         public static void SetupSwaggerUi(WebApplication app)
         {
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
             app.UseSwaggerUI();
         }
     }

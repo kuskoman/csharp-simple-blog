@@ -1,0 +1,6 @@
+bin/
+node_modules/
+src/
+.gitignore
+.npmignore
+tsconfig.json

@@ -1,0 +1,23 @@
+{
+  "name": "simple-blog-api-sdk",
+  "version": "1.0.0",
+  "description": "Automatically generated API SDK for SimpleBlog application",
+  "main": "lib/index.js",
+  "repository": "https://github.com/kuskoman/csharp-simple-blog/tree/master/SimpleBlog.ApiSdk",
+  "author": "Jakub Surdej <jakub.surdej@microsoft.wsei.edu.pl>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "generate": "node ./bin/generate.mjs",
+    "postgenerate": "yarn build",
+    "prepack": "generate"
+  },
+  "devDependencies": {
+    "@types/superagent": "^4.1.16",
+    "swagger-typescript-codegen": "^3.2.4",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "superagent": "^8.0.8"
+  }
+}
