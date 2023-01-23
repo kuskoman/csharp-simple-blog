@@ -7,12 +7,9 @@ import {
   ApplicationAlert,
 } from "./alert.interfaces";
 import { v4 as uuidv4 } from "uuid";
-import { ALERT_TYPE } from "./alert.consts";
 
 const state: AlertState = {
-  alerts: [
-    { title: "TestTitle", body: "TestBody", type: ALERT_TYPE.INFO, id: "1" },
-  ],
+  alerts: [],
 };
 
 const getters: AlertGetters = {
@@ -23,11 +20,8 @@ const mutations = {
   [ALERT_ACTION_TYPES.PUSH_ALERT]: (state: AlertState, alert: AlertWithId) => {
     state.alerts.push(alert);
   },
-  [ALERT_ACTION_TYPES.REMOVE_ALERT]: (
-    state: AlertState,
-    alert: AlertWithId
-  ) => {
-    state.alerts = state.alerts.filter((a) => a !== alert);
+  [ALERT_ACTION_TYPES.REMOVE_ALERT]: (state: AlertState, alertId: string) => {
+    state.alerts = state.alerts.filter((alert) => alert.id !== alertId);
   },
 };
 
@@ -38,17 +32,6 @@ const actions = {
   ) => {
     const alertWithId: AlertWithId = { ...alert, id: uuidv4() };
     commit(ALERT_ACTION_TYPES.PUSH_ALERT, alertWithId);
-  },
-  [ALERT_ACTION_TYPES.CLOSE_ALERT]: (
-    { commit, state }: ActionContext<AlertState, AlertState>,
-    alertId: string
-  ) => {
-    const alertToBeClosed = state.alerts.find(({ id }) => id === alertId);
-    if (!alertToBeClosed) {
-      return;
-    }
-
-    commit(ALERT_ACTION_TYPES.REMOVE_ALERT, alertId);
   },
 };
 
