@@ -49,23 +49,12 @@ namespace SimpleBlog.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public ActionResult<UserResponseDto> Me()
         {
-            var userName = _userManager.GetUserName(HttpContext.User);
-            if (userName == null)
-            {
-                _logger.LogWarning("Could not find user from context");
-                return NotFound();
-            }
-
-            _logger.LogInformation($"Fetching user for name {userName}");
-            var user = _userService.GetByName(userName);
+            var user = _userManager.GetUserAsync(User).Result;
             if (user == null)
             {
-                _logger.LogWarning(
-                    $"Found user {userName} in session, but could not find it in database"
-                );
-                return NotFound();
+                _logger.LogWarning("Could not find user for current session");
+                return Unauthorized();
             }
-
             return Ok(new UserResponseDto(user));
         }
 
