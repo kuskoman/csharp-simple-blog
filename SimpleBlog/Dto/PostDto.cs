@@ -23,7 +23,7 @@ namespace SimpleBlog.Dto
         public uint Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
-        public AuthorResponseDto Author { get; set; }
+        public AuthorResponseDto? Author { get; set; }
         public CommentShowDto[] Comments { get; set; }
 
         public PostShowDto(Post post)
@@ -31,7 +31,7 @@ namespace SimpleBlog.Dto
             Id = post.Id;
             Title = post.Title!;
             Content = post.Body!;
-            Author = new AuthorResponseDto(post.Author!);
+            Author = GetAuthorIfNotNull(post);
             Comments = GetCommentsIfNotNull(post);
         }
 
@@ -43,6 +43,16 @@ namespace SimpleBlog.Dto
             }
 
             return post.Comments.Select(c => new CommentShowDto(c)).ToArray();
+        }
+
+        private static AuthorResponseDto? GetAuthorIfNotNull(Post post)
+        {
+            if (post.Author == null)
+            {
+                return null;
+            }
+
+            return new AuthorResponseDto(post.Author);
         }
     }
 }

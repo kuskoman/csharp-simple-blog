@@ -30,8 +30,9 @@ namespace SimpleBlog.Controllers
         public ActionResult<IEnumerable<PostShowDto>> Index()
         {
             var posts = _postService.GetAllWithCommentsAndAuthor();
+            var serializedPosts = posts.Select(p => new PostShowDto(p));
 
-            return Ok(posts.Select(p => new PostShowDto(p)));
+            return Ok(serializedPosts);
         }
 
         [HttpGet("{id:int}")]

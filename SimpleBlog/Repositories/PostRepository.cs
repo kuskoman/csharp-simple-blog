@@ -28,6 +28,7 @@ namespace SimpleBlog.Repositories
         public List<Post> GetAllWithCommentsAndAuthor()
         {
             var posts = _dbSet
+                .Where(p => p.Id > 0)
                 .Include(p => p.Author!)
                 .Include(p => p.Comments!)
                 .ThenInclude(c => c.Author)
