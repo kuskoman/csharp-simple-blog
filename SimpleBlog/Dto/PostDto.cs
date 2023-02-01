@@ -32,7 +32,17 @@ namespace SimpleBlog.Dto
             Title = post.Title!;
             Content = post.Body!;
             Author = new AuthorResponseDto(post.Author!);
-            Comments = post.Comments!.Select(c => new CommentShowDto(c)).ToArray();
+            Comments = GetCommentsIfNotNull(post);
+        }
+
+        private static CommentShowDto[] GetCommentsIfNotNull(Post post)
+        {
+            if (post.Comments == null)
+            {
+                return Array.Empty<CommentShowDto>();
+            }
+
+            return post.Comments.Select(c => new CommentShowDto(c)).ToArray();
         }
     }
 }
