@@ -1,3 +1,4 @@
-import { SimpleBlogApiSdk } from "@/lib/sdk";
+import { serviceOptions } from "@/lib/sdk";
+import { axiosInstance } from "./instance";
 
-export const ApiClient = new SimpleBlogApiSdk(process.env.VUE_APP_API_URL);
+serviceOptions.axios = axiosInstance;
