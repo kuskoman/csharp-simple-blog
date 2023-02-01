@@ -6,6 +6,6 @@ namespace SimpleBlog.Repositories.Interfaces
     {
         public List<Comment> GetCommentsForPost(uint postId);
         public Comment CreateCommentForPost(uint postId, Comment comment);
-        public void DeleteCommentForPost(uint postId, uint commentId);
+        public Comment DeleteCommentForPost(uint postId, uint commentId);
     }
 }
