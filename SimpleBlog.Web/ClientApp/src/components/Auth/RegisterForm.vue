@@ -58,15 +58,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.form-box {
-  margin {
-    top: 30px;
-  }
-}
-
-.submit-btn {
-  margin: {
-    top: 5px;
-  }
-}
+@use "@/styles/partials/auth_forms";
 </style>

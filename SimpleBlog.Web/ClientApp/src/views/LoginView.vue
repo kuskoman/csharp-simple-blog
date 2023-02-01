@@ -26,8 +26,4 @@ export default defineComponent({
 .login-card {
   @include square-card;
 }
-
-.login-subtitle {
-  margin-bottom: 15px;
-}
 </style>
