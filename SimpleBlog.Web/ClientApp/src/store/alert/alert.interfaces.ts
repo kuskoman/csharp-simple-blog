@@ -5,7 +5,11 @@ import { ALERT_TYPE } from "./alert.consts";
 export interface ApplicationAlert {
   type: ALERT_TYPE;
   title: string;
-  body: string;
+  body: string[];
+}
+
+export interface ApplicationAlertInput extends Omit<ApplicationAlert, "body"> {
+  body: string | string[];
 }
 
 export interface AlertWithId extends ApplicationAlert {

@@ -22,7 +22,10 @@ namespace SimpleBlog.Controllers
 
         [HttpPost("signup")]
         [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(
+            typeof(RegisterErrorResponseDto),
+            StatusCodes.Status422UnprocessableEntity
+        )]
         public async Task<ActionResult<IdentityResult>> Register([FromBody] UserCreateDto user)
         {
             _logger.LogTrace($"Received signup request for user {user.Email}");

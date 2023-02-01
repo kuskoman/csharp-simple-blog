@@ -62,6 +62,44 @@ export interface IdentityResult {
 /**
  * 
  * @export
+ * @interface RegisterErrorDto
+ */
+export interface RegisterErrorDto {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegisterErrorDto
+     */
+    'name'?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegisterErrorDto
+     */
+    'email'?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegisterErrorDto
+     */
+    'password'?: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface RegisterErrorResponseDto
+ */
+export interface RegisterErrorResponseDto {
+    /**
+     * 
+     * @type {RegisterErrorDto}
+     * @memberof RegisterErrorResponseDto
+     */
+    'errors'?: RegisterErrorDto;
+}
+/**
+ * 
+ * @export
  * @interface User
  */
 export interface User {

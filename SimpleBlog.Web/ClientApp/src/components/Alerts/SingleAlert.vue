@@ -1,6 +1,10 @@
 <template>
   <v-alert :type="type" :icon="`$${type}`" :title="title" v-model="alert" closable>
-    {{ body }}
+    <ul>
+      <li v-for="err in body" v-bind:key="err">
+        {{ err }}
+      </li>
+    </ul>
   </v-alert>
 </template>
 
