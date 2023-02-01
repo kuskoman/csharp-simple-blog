@@ -26,12 +26,14 @@ namespace SimpleBlog.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult<IEnumerable<Post>> Index()
+        [HttpGet("")]
+        public ActionResult<IEnumerable<PostShowDto>> Index()
         {
             return Ok(_postService.GetAllPostsWithCommentsAndAuthors());
         }
 
-        public ActionResult<Post> Show(uint id)
+        [HttpGet("{id:int}")]
+        public ActionResult<PostShowDto> Show(uint id)
         {
             var post = _postService.GetPostWithCommentsAndAuthors(id);
 
@@ -40,28 +42,35 @@ namespace SimpleBlog.Controllers
                 return NotFound();
             }
 
-            return Ok(post);
+            return Ok(new PostShowDto(post));
         }
 
         // [Authorize(Roles = "Admin")]
         [HttpPost("")]
-        [ProducesResponseType(typeof(Post), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(PostShowDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public ActionResult<Post> Create(Post post)
+        public ActionResult<PostShowDto> Create(PostCreateDto postDto)
         {
             var user = _userManager.GetUserAsync(User).Result;
 
+            var post = new Post
+            {
+                Title = postDto.Title,
+                Body = postDto.Content,
+                Author = user
+            };
+
             _postService.Create(post);
 
-            return CreatedAtAction(nameof(Show), new { id = post.Id }, post);
+            return CreatedAtAction(nameof(Show), new { id = post.Id }, new PostShowDto(post));
         }
 
         // [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
-        [ProducesResponseType(typeof(Post), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PostShowDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Post> Update(uint id, Post post)
+        public ActionResult<PostShowDto> Update(uint id, PostModifyDto postDto)
         {
             var existingPost = _postService.Get(id);
 
@@ -70,19 +79,18 @@ namespace SimpleBlog.Controllers
                 return NotFound();
             }
 
-            existingPost.Title = post.Title;
-            existingPost.Body = post.Body;
+            existingPost.Title = postDto.Title;
+            existingPost.Body = postDto.Content;
 
-            _postService.Modify(existingPost);
-
-            return Ok(existingPost);
+            var modifiedPost = _postService.Modify(existingPost);
+            return Ok(new PostShowDto(modifiedPost));
         }
 
         // [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public ActionResult<Post> Delete(uint id)
+        public ActionResult<PostShowDto> Delete(uint id)
         {
             var post = _postService.Get(id);
 
@@ -93,7 +101,7 @@ namespace SimpleBlog.Controllers
 
             _postService.Delete(post.Id);
 
-            return Ok(post);
+            return Ok(new PostShowDto(post));
         }
     }
 }

@@ -45,4 +45,16 @@ namespace SimpleBlog.Dto
         public string Name { get; }
         public uint Id { get; }
     }
+
+    public class AuthorResponseDto
+    {
+        public AuthorResponseDto(User user)
+        {
+            Name = user.UserName!;
+            Id = user.Id!;
+        }
+
+        public string Name { get; }
+        public uint Id { get; }
+    }
 }
