@@ -24,6 +24,50 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface AuthorResponseDto
+ */
+export interface AuthorResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthorResponseDto
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AuthorResponseDto
+     */
+    'id'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface CommentShowDto
+ */
+export interface CommentShowDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof CommentShowDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CommentShowDto
+     */
+    'body'?: string;
+    /**
+     * 
+     * @type {AuthorResponseDto}
+     * @memberof CommentShowDto
+     */
+    'author'?: AuthorResponseDto;
+}
+/**
+ * 
+ * @export
  * @interface IdentityError
  */
 export interface IdentityError {
@@ -58,6 +102,120 @@ export interface IdentityResult {
      * @memberof IdentityResult
      */
     'errors'?: Array<IdentityError>;
+}
+/**
+ * 
+ * @export
+ * @interface PostCreateDto
+ */
+export interface PostCreateDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof PostCreateDto
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostCreateDto
+     */
+    'content': string;
+}
+/**
+ * 
+ * @export
+ * @interface PostModifyDto
+ */
+export interface PostModifyDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof PostModifyDto
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostModifyDto
+     */
+    'content'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface PostShowDto
+ */
+export interface PostShowDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof PostShowDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostShowDto
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PostShowDto
+     */
+    'content'?: string;
+    /**
+     * 
+     * @type {AuthorResponseDto}
+     * @memberof PostShowDto
+     */
+    'author'?: AuthorResponseDto;
+    /**
+     * 
+     * @type {Array<CommentShowDto>}
+     * @memberof PostShowDto
+     */
+    'comments'?: Array<CommentShowDto>;
+}
+/**
+ * 
+ * @export
+ * @interface ProblemDetails
+ */
+export interface ProblemDetails {
+    [key: string]: object | any;
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'type'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'title'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProblemDetails
+     */
+    'status'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'detail'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'instance'?: string;
 }
 /**
  * 
@@ -497,6 +655,359 @@ export class AuthApi extends BaseAPI {
 
 
 /**
+ * PostsApi - axios parameter creator
+ * @export
+ */
+export const PostsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Posts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdDelete: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('postsIdDelete', 'id', id)
+            const localVarPath = `/Posts/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('postsIdGet', 'id', id)
+            const localVarPath = `/Posts/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {PostModifyDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdPut: async (id: number, body?: PostModifyDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('postsIdPut', 'id', id)
+            const localVarPath = `/Posts/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {PostCreateDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsPost: async (body?: PostCreateDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Posts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PostsApi - functional programming interface
+ * @export
+ */
+export const PostsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PostsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PostShowDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postsGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postsIdDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostShowDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postsIdDelete(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postsIdGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostShowDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postsIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {PostModifyDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postsIdPut(id: number, body?: PostModifyDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostShowDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postsIdPut(id, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {PostCreateDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postsPost(body?: PostCreateDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PostShowDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postsPost(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PostsApi - factory interface
+ * @export
+ */
+export const PostsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PostsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsGet(options?: any): AxiosPromise<Array<PostShowDto>> {
+            return localVarFp.postsGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdDelete(id: number, options?: any): AxiosPromise<PostShowDto> {
+            return localVarFp.postsIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdGet(id: number, options?: any): AxiosPromise<PostShowDto> {
+            return localVarFp.postsIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {PostModifyDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsIdPut(id: number, body?: PostModifyDto, options?: any): AxiosPromise<PostShowDto> {
+            return localVarFp.postsIdPut(id, body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {PostCreateDto} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postsPost(body?: PostCreateDto, options?: any): AxiosPromise<PostShowDto> {
+            return localVarFp.postsPost(body, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PostsApi - object-oriented interface
+ * @export
+ * @class PostsApi
+ * @extends {BaseAPI}
+ */
+export class PostsApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PostsApi
+     */
+    public postsGet(options?: AxiosRequestConfig) {
+        return PostsApiFp(this.configuration).postsGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PostsApi
+     */
+    public postsIdDelete(id: number, options?: AxiosRequestConfig) {
+        return PostsApiFp(this.configuration).postsIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PostsApi
+     */
+    public postsIdGet(id: number, options?: AxiosRequestConfig) {
+        return PostsApiFp(this.configuration).postsIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {PostModifyDto} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PostsApi
+     */
+    public postsIdPut(id: number, body?: PostModifyDto, options?: AxiosRequestConfig) {
+        return PostsApiFp(this.configuration).postsIdPut(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {PostCreateDto} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PostsApi
+     */
+    public postsPost(body?: PostCreateDto, options?: AxiosRequestConfig) {
+        return PostsApiFp(this.configuration).postsPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * UsersApi - axios parameter creator
  * @export
  */
@@ -636,6 +1147,35 @@ export const UsersApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersMeGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Users/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {User} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -719,6 +1259,15 @@ export const UsersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async usersMeGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.usersMeGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {User} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -772,6 +1321,14 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          */
         usersIdPut(id: string, body?: User, options?: any): AxiosPromise<UserResponseDto> {
             return localVarFp.usersIdPut(id, body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        usersMeGet(options?: any): AxiosPromise<UserResponseDto> {
+            return localVarFp.usersMeGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -834,6 +1391,16 @@ export class UsersApi extends BaseAPI {
      */
     public usersIdPut(id: string, body?: User, options?: AxiosRequestConfig) {
         return UsersApiFp(this.configuration).usersIdPut(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApi
+     */
+    public usersMeGet(options?: AxiosRequestConfig) {
+        return UsersApiFp(this.configuration).usersMeGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
