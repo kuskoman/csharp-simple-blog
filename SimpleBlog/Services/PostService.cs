@@ -6,21 +6,23 @@ namespace SimpleBlog.Services
 {
     public class PostService : BaseService<Post>, IPostService
     {
-        protected new readonly IPostRepository _repository;
+        new protected IPostRepository _repository { get; set; }
 
         public PostService(IPostRepository repository) : base(repository)
         {
             _repository = repository;
         }
 
-        public List<Post> GetAllPostsWithCommentsAndAuthors()
+        public Post? GetWithCommentsAndAuthor(uint id)
         {
-            return _repository.GetAllPostsWithCommentsAndAuthors();
+            var post = _repository.GetWithCommentsAndAuthor(id);
+            return post;
         }
 
-        public Post? GetPostWithCommentsAndAuthors(uint id)
+        public List<Post> GetAllWithCommentsAndAuthor()
         {
-            return _repository.GetPostWithCommentsAndAuthors(id);
+            var posts = _repository.GetAllWithCommentsAndAuthor();
+            return posts;
         }
     }
 }

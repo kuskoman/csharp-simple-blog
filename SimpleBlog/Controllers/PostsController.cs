@@ -29,17 +29,21 @@ namespace SimpleBlog.Controllers
         [HttpGet("")]
         public ActionResult<IEnumerable<PostShowDto>> Index()
         {
-            return Ok(_postService.GetAllPostsWithCommentsAndAuthors());
+            var posts = _postService.GetAllWithCommentsAndAuthor();
+
+            return Ok(posts.Select(p => new PostShowDto(p)));
         }
 
         [HttpGet("{id:int}")]
+        [ProducesResponseType(typeof(PostShowDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PostShowDto> Show(uint id)
         {
-            var post = _postService.GetPostWithCommentsAndAuthors(id);
+            var post = _postService.GetWithCommentsAndAuthor(id);
 
             if (post == null)
             {
-                return NotFound();
+                return NotFound($"Could not find post with id ${id}");
             }
 
             return Ok(new PostShowDto(post));

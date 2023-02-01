@@ -23,7 +23,8 @@ namespace SimpleBlog.Repositories
 
         public Model? Get(uint id)
         {
-            return _dbSet.Find(id);
+            var model = _dbSet.Find(id);
+            return model;
         }
 
         public Model Delete(uint id)

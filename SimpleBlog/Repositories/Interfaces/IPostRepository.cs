@@ -4,7 +4,7 @@ namespace SimpleBlog.Repositories.Interfaces
 {
     public interface IPostRepository : IBaseRepository<Post>
     {
-        public List<Post> GetAllPostsWithCommentsAndAuthors();
-        public Post? GetPostWithCommentsAndAuthors(uint id);
+        public Post? GetWithCommentsAndAuthor(uint id);
+        public List<Post> GetAllWithCommentsAndAuthor();
     }
 }

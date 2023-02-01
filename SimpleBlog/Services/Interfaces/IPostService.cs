@@ -4,7 +4,7 @@ namespace SimpleBlog.Services.Interfaces
 {
     public interface IPostService : IBaseService<Post>
     {
-        public List<Post> GetAllPostsWithCommentsAndAuthors();
-        public Post? GetPostWithCommentsAndAuthors(uint id);
+        public Post? GetWithCommentsAndAuthor(uint id);
+        public List<Post> GetAllWithCommentsAndAuthor();
     }
 }

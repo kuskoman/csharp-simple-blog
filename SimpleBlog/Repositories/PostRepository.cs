@@ -7,20 +7,32 @@ namespace SimpleBlog.Repositories
 {
     public class PostRepository : BaseRepository<Post>, IPostRepository
     {
-        public PostRepository(BlogContext ctx) : base(ctx, ctx.Posts!) { }
+        new protected DbSet<Post> _dbSet { get; set; }
 
-        public List<Post> GetAllPostsWithCommentsAndAuthors()
+        public PostRepository(BlogContext ctx) : base(ctx, ctx.Posts!)
         {
-            return _dbSet.Include("Comments").Include("Author").ToList();
+            _dbSet = ctx.Posts!;
         }
 
-        public Post? GetPostWithCommentsAndAuthors(uint id)
+        public Post? GetWithCommentsAndAuthor(uint id)
         {
-            return _dbSet
-                .Where(post => post.Id == id)
-                .Include("Comments")
-                .Include("Author")
-                .SingleOrDefault();
+            var post = _dbSet
+                .Where(p => p.Id == id)
+                .Include(p => p.Author!)
+                .Include(p => p.Comments!)
+                .ThenInclude(c => c.Author)
+                .FirstOrDefault();
+            return post;
+        }
+
+        public List<Post> GetAllWithCommentsAndAuthor()
+        {
+            var posts = _dbSet
+                .Include(p => p.Author!)
+                .Include(p => p.Comments!)
+                .ThenInclude(c => c.Author)
+                .ToList();
+            return posts;
         }
     }
 }
