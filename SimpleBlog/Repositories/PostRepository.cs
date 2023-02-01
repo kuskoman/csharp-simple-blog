@@ -11,10 +11,7 @@ namespace SimpleBlog.Repositories
 
         public List<Post> GetAllPostsWithCommentsAndAuthors()
         {
-            return _dbSet
-                .Include(p => p.Comments.AsEnumerable())
-                .ThenInclude(c => c.Author)
-                .ToList();
+            return _dbSet.Include("Comments").Include("Author").ToList();
         }
 
         public Post? GetPostWithCommentsAndAuthors(uint id)
