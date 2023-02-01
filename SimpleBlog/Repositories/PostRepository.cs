@@ -17,12 +17,13 @@ namespace SimpleBlog.Repositories
                 .ToList();
         }
 
-        public Post GetPostWithCommentsAndAuthors(uint id)
+        public Post? GetPostWithCommentsAndAuthors(uint id)
         {
             return _dbSet
-                .Include(p => p.Comments.AsEnumerable())
-                .ThenInclude(c => c.Author)
-                .FirstOrDefault(p => p.Id == id);
+                .Where(post => post.Id == id)
+                .Include("Comments")
+                .Include("Author")
+                .SingleOrDefault();
         }
     }
 }
