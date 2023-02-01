@@ -2,7 +2,7 @@
   <v-card tag="article">
     <v-card-title tag="h2">{{ title }}</v-card-title>
     <v-card-text tag="p">{{ body }}</v-card-text>
-    <blog-author :author="author"></blog-author>
+    <blog-author v-if="author" :author="author.name"></blog-author>
   </v-card>
 </template>
 
@@ -16,7 +16,10 @@ export default defineComponent({
   props: {
     title: String,
     body: String,
-    author: String,
+    author: {
+      required: false,
+      type: Object,
+    },
   },
   components: {
     BlogAuthor,
