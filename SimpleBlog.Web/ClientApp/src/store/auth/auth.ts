@@ -2,7 +2,7 @@ import { ActionContext, ActionTree, Module } from "vuex";
 import { AuthClient } from "@/api";
 import { ALERT_ACTION_TYPES, ALERT_STORE, ALERT_TYPE, ApplicationAlertInput } from "../alert";
 import { AUTH_ACTION_TYPES } from "./auth.action-types";
-import { AuthState, RegisterParams } from "./auth.interfaces";
+import { AuthState, LoginParams, RegisterParams } from "./auth.interfaces";
 import { AxiosError } from "axios";
 import { RegisterErrorResponseDto } from "@/lib/sdk";
 
@@ -27,6 +27,32 @@ const actions: ActionTree<AuthState, AuthState> = {
         body: "Successfully created an account",
       };
       await dispatch(addAlertAction, registerSuccessfulAlert, { root: true });
+    } catch (e: unknown) {
+      const axiosError = e as AxiosError<RegisterErrorResponseDto>;
+      const responseErrors = Object.entries(axiosError.response?.data.errors || {});
+      const errors = responseErrors.flatMap(([, err]) => err);
+      const failureAlert: ApplicationAlertInput = {
+        type: ALERT_TYPE.ERROR,
+        title: "Login failed",
+        body: errors,
+      };
+      await dispatch(addAlertAction, failureAlert, { root: true });
+      return;
+    }
+  },
+
+  [AUTH_ACTION_TYPES.LOGIN]: async (ctx: ActionContext<AuthState, AuthState>, loginParams: LoginParams) => {
+    const { dispatch } = ctx;
+    const addAlertAction = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
+
+    try {
+      await AuthClient.authLoginPost(loginParams);
+      const loginSuccessfulAlert: ApplicationAlertInput = {
+        type: ALERT_TYPE.SUCCESS,
+        title: "Welcome back!",
+        body: "Successfully logged in",
+      };
+      await dispatch(addAlertAction, loginSuccessfulAlert, { root: true });
     } catch (e: unknown) {
       const axiosError = e as AxiosError<RegisterErrorResponseDto>;
       const responseErrors = Object.entries(axiosError.response?.data.errors || {});
