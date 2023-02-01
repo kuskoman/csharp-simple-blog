@@ -46,12 +46,19 @@ namespace SimpleBlog.Controllers
         }
 
         // [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost("")]
         [ProducesResponseType(typeof(PostShowDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public ActionResult<PostShowDto> Create(PostCreateDto postDto)
         {
             var user = _userManager.GetUserAsync(User).Result;
+
+            if (user == null)
+            {
+                _logger.LogError("Could not find user for current session");
+                return Unauthorized();
+            }
 
             var post = new Post
             {
