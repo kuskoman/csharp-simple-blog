@@ -9,5 +9,6 @@ namespace SimpleBlog.Models
         public string? Body { get; set; }
         public string? Slug { get; set; }
         public User? Author { get; set; }
+        public List<Comment>? Comments { get; set; }
     }
 }
