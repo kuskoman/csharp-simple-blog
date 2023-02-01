@@ -2,7 +2,7 @@
   <div class="d-flex align-center flex-column">
     <v-card width="800" variant="tonal" class="register-card">
       <v-card-title>Register</v-card-title>
-      <v-card-subtitle>Create an account</v-card-subtitle>
+      <v-card-subtitle class="register-subtitle">Create an account</v-card-subtitle>
       <register-form></register-form>
     </v-card>
   </div>
@@ -26,5 +26,9 @@ export default defineComponent({
 
 .register-card {
   @include square-card;
+}
+
+.register-subtitle {
+  margin-bottom: 15px;
 }
 </style>

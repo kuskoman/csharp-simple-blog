@@ -40,14 +40,34 @@ namespace SimpleBlog.Utils
             });
             services.ConfigureApplicationCookie(options =>
             {
-                options.Events.OnRedirectToLogin = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
-                options.Events.OnRedirectToLogout = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
-                options.Events.OnRedirectToAccessDenied = ctx => HandleRedirect(ctx, HttpStatusCode.Forbidden);
-                options.Events.OnRedirectToReturnUrl = ctx => HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+                options.Events.OnRedirectToLogin = ctx =>
+                    HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+                options.Events.OnRedirectToLogout = ctx =>
+                    HandleRedirect(ctx, HttpStatusCode.Unauthorized);
+                options.Events.OnRedirectToAccessDenied = ctx =>
+                    HandleRedirect(ctx, HttpStatusCode.Forbidden);
+                options.Events.OnRedirectToReturnUrl = ctx =>
+                    HandleRedirect(ctx, HttpStatusCode.Unauthorized);
             });
+
+            services.AddCors(
+                o =>
+                    o.AddPolicy(
+                        "AnyOriginPolicy",
+                        builder =>
+                        {
+                            builder.AllowAnyOrigin();
+                            builder.AllowAnyHeader();
+                            builder.AllowAnyMethod();
+                        }
+                    )
+            );
         }
 
-        private static Task<int> HandleRedirect(RedirectContext<CookieAuthenticationOptions> ctx, HttpStatusCode code)
+        private static Task<int> HandleRedirect(
+            RedirectContext<CookieAuthenticationOptions> ctx,
+            HttpStatusCode code
+        )
         {
             ctx.Response.StatusCode = (int)code;
             ctx.Response.WriteAsync("{\"error\": " + code + "}");
