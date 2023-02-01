@@ -17,5 +17,10 @@ namespace SimpleBlog.Services
         {
             return _repository.GetByEmail(email);
         }
+
+        public User? GetByName(string name)
+        {
+            return _repository.GetByName(name);
+        }
     }
 }

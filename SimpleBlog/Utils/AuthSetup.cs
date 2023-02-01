@@ -38,6 +38,7 @@ namespace SimpleBlog.Utils
                 options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(7);
             });
+            services.AddHttpContextAccessor();
             services.ConfigureApplicationCookie(options =>
             {
                 options.Events.OnRedirectToLogin = ctx =>

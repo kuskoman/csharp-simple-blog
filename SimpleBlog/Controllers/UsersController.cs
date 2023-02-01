@@ -3,6 +3,7 @@ using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Dto;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace SimpleBlog.Controllers
 {
@@ -13,11 +14,17 @@ namespace SimpleBlog.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUserService _userService;
+        private readonly UserManager<User> _userManager;
 
-        public UsersController(ILogger<UsersController> logger, IUserService userService)
+        public UsersController(
+            ILogger<UsersController> logger,
+            IUserService userService,
+            UserManager<User> userManager
+        )
         {
             _logger = logger;
             _userService = userService;
+            _userManager = userManager;
         }
 
         [HttpGet("{id:int}")]
@@ -37,11 +44,30 @@ namespace SimpleBlog.Controllers
             return Ok(_userService.GetAll().Select(u => new UserResponseDto(u)));
         }
 
-        // [HttpGet("me")]
-        // public ActionResult<UserResponseDto> Me()
-        // {
+        [HttpGet("me")]
+        [ProducesResponseType(typeof(UserResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public ActionResult<UserResponseDto> Me()
+        {
+            var userName = _userManager.GetUserName(HttpContext.User);
+            if (userName == null)
+            {
+                _logger.LogWarning("Could not find user from context");
+                return NotFound();
+            }
 
-        // }
+            _logger.LogInformation($"Fetching user for name {userName}");
+            var user = _userService.GetByName(userName);
+            if (user == null)
+            {
+                _logger.LogWarning(
+                    $"Found user {userName} in session, but could not find it in database"
+                );
+                return NotFound();
+            }
+
+            return Ok(new UserResponseDto(user));
+        }
 
         [HttpPost]
         public ActionResult<UserResponseDto> Create([FromBody] User user)

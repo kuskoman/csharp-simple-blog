@@ -12,5 +12,10 @@ namespace SimpleBlog.Repositories
         {
             return _dbSet.Where(u => u.Email == email).SingleOrDefault();
         }
+
+        public User? GetByName(string name)
+        {
+            return _dbSet.Where(u => u.UserName == name).SingleOrDefault();
+        }
     }
 }
