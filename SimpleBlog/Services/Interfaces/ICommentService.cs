@@ -1,10 +1,11 @@
 using SimpleBlog.Models;
 
-namespace SimpleBlog.Repositories.Interfaces
+namespace SimpleBlog.Services.Interfaces
 {
-    public interface ICommentRepository : IBaseRepository<Comment>
+    public interface ICommentService
     {
         public List<Comment> GetCommentsForPost(uint postId);
         public Comment CreateCommentForPost(uint postId, Comment comment);
+        public Comment DeleteComment(uint commentId);
     }
 }
