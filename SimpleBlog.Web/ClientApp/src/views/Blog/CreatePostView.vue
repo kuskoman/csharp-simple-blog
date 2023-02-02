@@ -21,8 +21,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { useStore } from "vuex";
-import { AlertState, ALERT_STORE, ALERT_ACTION_TYPES } from "../../store/alert";
+import store from "@/store";
+import { ALERT_STORE, ALERT_ACTION_TYPES, ApplicationAlertInput, ALERT_TYPE } from "../../store/alert";
+import { PostsClient } from "@/api/PostsClient";
+import { AxiosError } from "axios";
+import router from "../../router";
 
 const initialState = {
   valid: true,
@@ -32,10 +35,31 @@ const initialState = {
 
 const state = reactive({ ...initialState });
 
-const store = useStore<AlertState>();
-
-const submit = () => {
+const submit = async () => {
   const alertActionName = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
+
+  try {
+    await PostsClient.postsPost({
+      title: state.title,
+      content: state.body,
+    });
+
+    const postCreationSuccessfulAlert: ApplicationAlertInput = {
+      body: "Post created successfully!",
+      title: "Success",
+      type: ALERT_TYPE.SUCCESS,
+    };
+    await store.dispatch(alertActionName, postCreationSuccessfulAlert);
+    await router.push("/");
+  } catch (e: unknown) {
+    const error = e as AxiosError;
+    const postCreationFailedAlert: ApplicationAlertInput = {
+      body: error.response?.data?.message ?? "Post creation failed!",
+      title: "Error",
+      type: ALERT_TYPE.ERROR,
+    };
+    await store.dispatch(alertActionName, postCreationFailedAlert);
+  }
 };
 
 export default defineComponent({

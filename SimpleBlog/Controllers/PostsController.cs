@@ -51,13 +51,13 @@ namespace SimpleBlog.Controllers
         }
 
         // [Authorize(Roles = "Admin")]
-        [Authorize]
+        // [Authorize]
         [HttpPost("")]
         [ProducesResponseType(typeof(PostShowDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public ActionResult<PostShowDto> Create(PostCreateDto postDto)
         {
-            var user = _userManager.GetUserAsync(User).Result;
+            var user = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
 
             if (user == null)
             {

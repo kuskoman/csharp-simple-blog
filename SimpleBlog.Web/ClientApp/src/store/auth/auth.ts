@@ -5,6 +5,7 @@ import { AUTH_ACTION_TYPES } from "./auth.action-types";
 import { AuthState, LoginParams, RegisterParams } from "./auth.interfaces";
 import { AxiosError } from "axios";
 import { RegisterErrorResponseDto } from "@/lib/sdk";
+import router from "../../router";
 
 const state: AuthState = {
   dummyField: undefined,
@@ -33,12 +34,14 @@ const actions: ActionTree<AuthState, AuthState> = {
       const errors = responseErrors.flatMap(([, err]) => err);
       const failureAlert: ApplicationAlertInput = {
         type: ALERT_TYPE.ERROR,
-        title: "Login failed",
+        title: "Registration failed",
         body: errors,
       };
       await dispatch(addAlertAction, failureAlert, { root: true });
       return;
     }
+
+    await router.push("/");
   },
 
   [AUTH_ACTION_TYPES.LOGIN]: async (ctx: ActionContext<AuthState, AuthState>, loginParams: LoginParams) => {
@@ -65,6 +68,8 @@ const actions: ActionTree<AuthState, AuthState> = {
       await dispatch(addAlertAction, failureAlert, { root: true });
       return;
     }
+
+    await router.push("/");
   },
 };
 
