@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import RegisterForm from "../components/Auth/RegisterForm.vue";
+import RegisterForm from "../../components/Auth/RegisterForm.vue";
 
 export default defineComponent({
   name: "RegisterView",

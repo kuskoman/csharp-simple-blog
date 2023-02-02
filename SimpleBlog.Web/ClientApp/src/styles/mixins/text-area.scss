@@ -1,0 +1,12 @@
+@mixin big-text-area {
+  width: 100%;
+  min-height: 200px;
+  box-sizing: border-box;
+  resize: none;
+  padding: {
+    bottom: 10px;
+  }
+  margin: {
+    bottom: 20px;
+  }
+}
