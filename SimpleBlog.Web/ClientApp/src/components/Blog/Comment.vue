@@ -3,10 +3,6 @@
     <v-card-title tag="h2">{{ title }}</v-card-title>
     <v-card-text tag="p">{{ body }}</v-card-text>
     <blog-author v-if="author" :author="author.name"></blog-author>
-    <v-divider></v-divider>
-    <v-card-item class="comments" v-if="comments && comments.length > 0">
-      <v-card-subtitle tag="h3" class="post-subtitle">Comments</v-card-subtitle>
-    </v-card-item>
   </v-card>
 </template>
 
@@ -16,18 +12,13 @@ import BlogAuthor from "./Author.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "BlogPost",
+  name: "BlogComment",
   props: {
     title: String,
     body: String,
     author: {
       required: false,
       type: Object,
-    },
-    comments: {
-      required: false,
-      type: Array,
-      default: () => [],
     },
   },
   components: {
@@ -36,20 +27,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-@import "@/styles/mixins/card.scss";
-
-article {
-  @include square-card;
-
-  .author-item {
-    font: {
-      size: 0.8em;
-    }
-  }
-}
-
-.post-subtitle {
-  margin-top: 20px;
-}
-</style>
+<style scoped lang="scss"></style>
