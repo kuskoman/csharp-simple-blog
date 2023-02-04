@@ -45,12 +45,21 @@ import { defineComponent } from "vue";
 import { ref } from "vue";
 import { CommentsClient } from "@/api/CommentsClient";
 import { ALERT_STORE, ALERT_ACTION_TYPES } from "../../store/alert";
-import store from "@/store";
+import { Store, useStore } from "vuex";
 
 const rules = [
   (comment: string) => !!comment || "Comment is required",
   (comment: string) => comment.length >= 2 || "Comment must be at least 3 characters",
 ];
+
+let store: Store<unknown> | null = null;
+const getStore = () => {
+  if (!store) {
+    throw new Error("Store not initialized");
+  }
+
+  return store;
+};
 
 export default defineComponent({
   name: "NewComment",
@@ -65,11 +74,14 @@ export default defineComponent({
     comment: ref(""),
     valid: ref(false),
   }),
+  setup() {
+    store = useStore();
+  },
   methods: {
     async submitComment() {
       if (!this.valid) {
         const alertActionName = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
-        return store.dispatch(alertActionName, {
+        return getStore().dispatch(alertActionName, {
           body: "Please enter a valid comment",
           title: "Error",
           type: "error",
@@ -83,7 +95,7 @@ export default defineComponent({
           body: this.comment,
         });
       } catch (e: unknown) {
-        await store.dispatch(alertActionName, {
+        await getStore().dispatch(alertActionName, {
           body: "An error occurred while creating the comment",
           title: "Error",
           type: "error",
@@ -91,7 +103,7 @@ export default defineComponent({
         return;
       }
 
-      await store.dispatch(alertActionName, {
+      await getStore().dispatch(alertActionName, {
         body: "Comment created successfully!",
         title: "Success",
         type: "success",
