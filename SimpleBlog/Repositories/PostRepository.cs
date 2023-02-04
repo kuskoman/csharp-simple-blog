@@ -33,6 +33,7 @@ namespace SimpleBlog.Repositories
                 .Include(p => p.Comments!)
                 .ThenInclude(c => c.Author)
                 .ToList();
+            posts.Reverse();
             return posts;
         }
     }
