@@ -21,7 +21,7 @@ namespace SimpleBlog.Repositories
 
         public Comment CreateCommentForPost(uint postId, Comment comment)
         {
-            comment.Post!.Id = postId;
+            comment.Post = _ctx.Posts!.Find(postId);
             return Create(comment);
         }
     }

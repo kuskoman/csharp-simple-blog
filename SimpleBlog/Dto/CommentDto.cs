@@ -16,13 +16,23 @@ namespace SimpleBlog.Dto
     {
         public uint Id { get; set; }
         public string Body { get; set; } = string.Empty;
-        public AuthorResponseDto Author { get; set; }
+        public AuthorResponseDto? Author { get; set; }
 
         public CommentShowDto(Comment comment)
         {
             Id = comment.Id;
             Body = comment.Body!;
-            Author = new AuthorResponseDto(comment.Author!);
+            Author = SerializeAuthorIfExists(comment.Author);
+        }
+
+        private static AuthorResponseDto? SerializeAuthorIfExists(User? author)
+        {
+            if (author == null)
+            {
+                return null;
+            }
+
+            return new AuthorResponseDto(author);
         }
     }
 }
