@@ -15,7 +15,7 @@
         label="Password"
         placeholder=" *******"
       ></v-text-field>
-      <v-btn color="success" class="auth-btn" @click="submit">Login</v-btn>
+      <v-btn color="success" class="auth-btn" @click="submit">Register</v-btn>
       <v-btn color="error" class="auth-btn" @click="$router.go(-1)">Cancel</v-btn>
     </div>
   </v-form>
