@@ -35,7 +35,7 @@ namespace SimpleBlog.Utils
             services.AddAuthentication();
             services.AddSession(options =>
             {
-                options.Cookie.HttpOnly = true;
+                options.Cookie.HttpOnly = false; // don't do that, I just wan't to finish it today :D
                 options.Cookie.Expiration = TimeSpan.FromDays(7);
             });
             services.AddHttpContextAccessor();
