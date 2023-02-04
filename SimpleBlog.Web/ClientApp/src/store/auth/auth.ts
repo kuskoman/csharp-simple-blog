@@ -18,7 +18,7 @@ const state: AuthState = {
 };
 
 const getters = {
-  [AUTH_ACTION_TYPES.GET_LOGIN_STATUS]: (state: AuthState) => !!state.user,
+  [AUTH_ACTION_TYPES.GET_LOGIN_STATUS]: (state: AuthState): boolean => !!state.user?.username,
   [AUTH_ACTION_TYPES.GET_USER_NAME]: (state: AuthState) => state.user?.username || "Guest",
 };
 

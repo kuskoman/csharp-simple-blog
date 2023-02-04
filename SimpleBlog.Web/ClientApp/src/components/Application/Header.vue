@@ -1,7 +1,7 @@
 <template>
   <v-app-bar title="SimpleBlog" color="primary" prominent>
     <v-spacer></v-spacer>
-    <v-btn prepend-icon="mdi-account-key" @click="onAuthClick">Login</v-btn>
+    <v-btn prepend-icon="mdi-account-key" v-if="!userLogged" @click="onAuthClick">Login</v-btn>
     <v-btn prepend-icon="mdi-account" v-if="userLogged" @click="onProfileClick">{{ userName }}</v-btn>
     <v-btn :prepend-icon="themeIcon" @click="onThemeSwitchClick">Theme</v-btn>
   </v-app-bar>
@@ -25,9 +25,11 @@ const getThemeIcon = (theme: Theme) => {
 };
 
 const themeIcon = computed(() => getThemeIcon(store.state.theme));
-const userNameGetter = `${AUTH_STORE}/${AUTH_ACTION_TYPES.GET_USER_NAME}`;
-const userLoggedGetter = `${AUTH_STORE}/${AUTH_ACTION_TYPES.GET_LOGIN_STATUS}}`;
+
+const userLoggedGetter = `${AUTH_STORE}/${AUTH_ACTION_TYPES.GET_LOGIN_STATUS}`;
 const userLogged = computed(() => store.getters[userLoggedGetter]);
+
+const userNameGetter = `${AUTH_STORE}/${AUTH_ACTION_TYPES.GET_USER_NAME}`;
 const userName = computed(() => store.getters[userNameGetter]);
 
 const onThemeSwitchClick = () => {
