@@ -41,13 +41,13 @@ namespace SimpleBlog.Dto
 
         [EmailAddress]
         [Required]
-        public string Email { get; }
+        public string Email { get; } = string.Empty;
 
         [Required]
-        public string Name { get; }
+        public string Name { get; } = string.Empty;
 
         [Required]
-        public uint Id { get; }
+        public uint Id { get; } = 0;
     }
 
     public class AuthorResponseDto
