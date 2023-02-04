@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: BlogView,
   },
   {
+    path: "/auth",
+    name: "auth",
+    component: () => import(/* webpackChunkName: "auth" */ "../views/Auth/AuthView.vue"),
+  },
+  {
     path: "/register",
     name: "register",
     component: () => import(/* webpackChunkName: "register" */ "../views/Auth/RegisterView.vue"),

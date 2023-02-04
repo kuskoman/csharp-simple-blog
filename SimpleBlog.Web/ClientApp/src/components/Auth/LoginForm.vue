@@ -8,8 +8,9 @@
         placeholder=" jannowak@example.com"
         required
       ></v-text-field>
-      <v-text-field v-model="state.password" label="Password" placeholder=" *******"></v-text-field>
-      <v-btn color="success" class="me-4 submit-btn" @click="submit">Login</v-btn>
+      <v-text-field v-model="state.password" label="Password" placeholder=" *******" type="password"></v-text-field>
+      <v-btn color="success" class="auth-btn" @click="submit">Login</v-btn>
+      <v-btn color="error" class="auth-btn" @click="$router.go(-1)">Cancel</v-btn>
     </div>
   </v-form>
 </template>

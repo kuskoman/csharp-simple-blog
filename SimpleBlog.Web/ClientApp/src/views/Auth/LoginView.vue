@@ -1,7 +1,8 @@
 <template>
   <div class="d-flex align-center flex-column">
     <v-card width="800" variant="tonal" class="login-card">
-      <v-card-title>Login</v-card-title>
+      <v-card-title class="auth-card-title">Login</v-card-title>
+      <v-card-subtitle class="login-subtitle">Sign in to your account</v-card-subtitle>
       <login-form></login-form>
     </v-card>
   </div>
@@ -21,6 +22,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "@/styles/partials/auth_forms";
+
 @import "@/styles/mixins/card.scss";
 
 .login-card {

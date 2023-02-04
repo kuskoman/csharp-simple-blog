@@ -9,3 +9,20 @@
     top: 5px;
   }
 }
+
+.auth-btn-box {
+  margin-top: 20px;
+}
+
+.auth-btn {
+  width: 100%;
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.auth-card-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
