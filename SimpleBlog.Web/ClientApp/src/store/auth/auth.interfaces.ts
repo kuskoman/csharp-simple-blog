@@ -1,7 +1,11 @@
 import { UserCreateDto, UserLoginDto } from "@/lib/sdk";
 
+interface UserState {
+  username: string;
+}
+
 export interface AuthState {
-  dummyField?: undefined;
+  user: UserState | null;
 }
 
 export type RegisterParams = UserCreateDto;

@@ -4,16 +4,28 @@ import { ALERT_ACTION_TYPES, ALERT_STORE, ALERT_TYPE, ApplicationAlertInput } fr
 import { AUTH_ACTION_TYPES } from "./auth.action-types";
 import { AuthState, LoginParams, RegisterParams } from "./auth.interfaces";
 import { AxiosError } from "axios";
-import { RegisterErrorResponseDto } from "@/lib/sdk";
+import { RegisterErrorResponseDto, UserResponseDto } from "@/lib/sdk";
 import router from "../../router";
+import { UsersClient } from "../../api/UsersClient";
+import { AUTH_USER_LOCAL_STORAGE_KEY } from "./auth.consts";
 
 const state: AuthState = {
-  dummyField: undefined,
+  user: localStorage.getItem(AUTH_USER_LOCAL_STORAGE_KEY)
+    ? JSON.parse(localStorage.getItem(AUTH_USER_LOCAL_STORAGE_KEY) || "")
+    : null,
 };
 
-const getters = {};
+const getters = {
+  [AUTH_ACTION_TYPES.GET_LOGIN_STATUS]: (state: AuthState) => !!state.user,
+  [AUTH_ACTION_TYPES.GET_USER_NAME]: (state: AuthState) => state.user?.username || "Guest",
+};
 
-const mutations = {};
+const mutations = {
+  [AUTH_ACTION_TYPES.SET_LOGGED_USER_DATA]: (state: AuthState, user: UserResponseDto) => {
+    state.user = { ...(state.user || {}), username: user.name };
+    localStorage.setItem(AUTH_USER_LOCAL_STORAGE_KEY, JSON.stringify(state.user));
+  },
+};
 
 const actions: ActionTree<AuthState, AuthState> = {
   [AUTH_ACTION_TYPES.REGISTER]: async (ctx: ActionContext<AuthState, AuthState>, registerParams: RegisterParams) => {
@@ -70,6 +82,12 @@ const actions: ActionTree<AuthState, AuthState> = {
     }
 
     await router.push("/");
+  },
+
+  [AUTH_ACTION_TYPES.FETCH_USER_DATA]: async (ctx: ActionContext<AuthState, AuthState>) => {
+    const { commit } = ctx;
+    const { data: user } = await UsersClient.usersMeGet();
+    commit(AUTH_ACTION_TYPES.SET_LOGGED_USER_DATA, user);
   },
 };
 
