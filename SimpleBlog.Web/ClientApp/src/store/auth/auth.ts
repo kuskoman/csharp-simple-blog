@@ -9,6 +9,8 @@ import router from "../../router";
 import { UsersClient } from "../../api/UsersClient";
 import { AUTH_USER_LOCAL_STORAGE_KEY } from "./auth.consts";
 
+const addAlertAction = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
+
 const state: AuthState = {
   user: localStorage.getItem(AUTH_USER_LOCAL_STORAGE_KEY)
     ? JSON.parse(localStorage.getItem(AUTH_USER_LOCAL_STORAGE_KEY) || "")
@@ -30,7 +32,6 @@ const mutations = {
 const actions: ActionTree<AuthState, AuthState> = {
   [AUTH_ACTION_TYPES.REGISTER]: async (ctx: ActionContext<AuthState, AuthState>, registerParams: RegisterParams) => {
     const { dispatch } = ctx;
-    const addAlertAction = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
 
     try {
       await AuthClient.authSignupPost(registerParams);
@@ -39,6 +40,7 @@ const actions: ActionTree<AuthState, AuthState> = {
         title: "Welcome!",
         body: "Successfully created an account",
       };
+      await dispatch(AUTH_ACTION_TYPES.FETCH_USER_DATA);
       await dispatch(addAlertAction, registerSuccessfulAlert, { root: true });
     } catch (e: unknown) {
       const axiosError = e as AxiosError<RegisterErrorResponseDto>;
@@ -58,10 +60,10 @@ const actions: ActionTree<AuthState, AuthState> = {
 
   [AUTH_ACTION_TYPES.LOGIN]: async (ctx: ActionContext<AuthState, AuthState>, loginParams: LoginParams) => {
     const { dispatch } = ctx;
-    const addAlertAction = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
 
     try {
       await AuthClient.authLoginPost(loginParams);
+      await dispatch(AUTH_ACTION_TYPES.FETCH_USER_DATA);
       const loginSuccessfulAlert: ApplicationAlertInput = {
         type: ALERT_TYPE.SUCCESS,
         title: "Welcome back!",
@@ -85,8 +87,21 @@ const actions: ActionTree<AuthState, AuthState> = {
   },
 
   [AUTH_ACTION_TYPES.FETCH_USER_DATA]: async (ctx: ActionContext<AuthState, AuthState>) => {
-    const { commit } = ctx;
-    const { data: user } = await UsersClient.usersMeGet();
+    const { commit, dispatch } = ctx;
+    let user: UserResponseDto;
+    try {
+      const responseData = await UsersClient.usersMeGet();
+      user = responseData.data;
+    } catch (e) {
+      const alert: ApplicationAlertInput = {
+        type: ALERT_TYPE.ERROR,
+        title: "Failed to fetch user data",
+        body: "Please try again later",
+      };
+      await dispatch(addAlertAction, alert, { root: true });
+      return;
+    }
+
     commit(AUTH_ACTION_TYPES.SET_LOGGED_USER_DATA, user);
   },
 };
