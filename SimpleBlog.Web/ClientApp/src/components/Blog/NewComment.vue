@@ -45,15 +45,12 @@ import { defineComponent } from "vue";
 import { ref } from "vue";
 import { CommentsClient } from "@/api/CommentsClient";
 import { ALERT_STORE, ALERT_ACTION_TYPES } from "../../store/alert";
-import { useStore } from "vuex";
+import store from "@/store";
 
 const rules = [
   (comment: string) => !!comment || "Comment is required",
   (comment: string) => comment.length >= 2 || "Comment must be at least 3 characters",
 ];
-
-const comment = ref("");
-const valid = ref(false);
 
 export default defineComponent({
   name: "NewComment",
@@ -65,15 +62,13 @@ export default defineComponent({
   },
   data: () => ({
     rules,
-    comment,
-    valid,
+    comment: ref(""),
+    valid: ref(false),
   }),
   methods: {
     async submitComment() {
-      if (!valid.value) {
-        // create a new alert
+      if (!this.valid) {
         const alertActionName = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
-        const store = useStore();
         return store.dispatch(alertActionName, {
           body: "Please enter a valid comment",
           title: "Error",
@@ -81,12 +76,11 @@ export default defineComponent({
         });
       }
 
-      const store = useStore();
       const alertActionName = `${ALERT_STORE}/${ALERT_ACTION_TYPES.ADD_ALERT}`;
 
       try {
         await CommentsClient.apiCommentsPostIdPost(this.postId, {
-          body: comment.value,
+          body: this.comment,
         });
       } catch (e: unknown) {
         await store.dispatch(alertActionName, {
