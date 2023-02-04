@@ -1,8 +1,6 @@
-import { UserCreateDto, UserLoginDto } from "@/lib/sdk";
+import { UserCreateDto, UserLoginDto, UserResponseDto } from "@/lib/sdk";
 
-interface UserState {
-  username: string;
-}
+type UserState = UserResponseDto;
 
 export interface AuthState {
   user: UserState | null;
