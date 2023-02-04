@@ -35,7 +35,7 @@ namespace SimpleBlog.Utils
             services.AddAuthentication();
             services.AddSession(options =>
             {
-                options.Cookie.HttpOnly = false; // don't do that, I just wan't to finish it today :D
+                options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(7);
             });
             services.AddHttpContextAccessor();
@@ -54,12 +54,13 @@ namespace SimpleBlog.Utils
             services.AddCors(
                 o =>
                     o.AddPolicy(
-                        "AnyOriginPolicy",
+                        "MyOriginPolicy",
                         builder =>
                         {
-                            builder.AllowAnyOrigin();
+                            builder.WithOrigins("http://localhost:5000");
+                            builder.WithOrigins("http://localhost:8080");
+                            builder.AllowCredentials();
                             builder.AllowAnyHeader();
-                            builder.AllowAnyMethod();
                         }
                     )
             );

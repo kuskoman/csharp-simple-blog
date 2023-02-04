@@ -18,6 +18,6 @@ if (app.Environment.IsDevelopment())
     SwaggerSetupUtil.SetupSwaggerUi(app);
 }
 
-app.UseCors("AnyOriginPolicy");
+app.UseCors("MyOriginPolicy");
 app.MapControllers();
 app.Run();
