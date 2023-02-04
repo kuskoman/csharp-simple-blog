@@ -20,6 +20,7 @@ const state: AuthState = {
 const getters = {
   [AUTH_ACTION_TYPES.GET_LOGIN_STATUS]: (state: AuthState): boolean => !!state.user?.name,
   [AUTH_ACTION_TYPES.GET_USER_NAME]: (state: AuthState) => state.user?.name || "Guest",
+  [AUTH_ACTION_TYPES.GET_USER_ROLE]: () => "admin", //state.user?.role || "guest",
 };
 
 const mutations = {

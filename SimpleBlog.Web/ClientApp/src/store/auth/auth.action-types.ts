@@ -6,4 +6,5 @@ export const enum AUTH_ACTION_TYPES {
   SET_LOGGED_USER_DATA = "setLoggedUserData",
   GET_LOGIN_STATUS = "getLoginStatus",
   GET_USER_NAME = "getUserName",
+  GET_USER_ROLE = "getUserRole",
 }
