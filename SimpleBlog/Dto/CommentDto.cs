@@ -22,6 +22,8 @@ namespace SimpleBlog.Dto
         {
             Id = comment.Id;
             Body = comment.Body!;
+
+            // todo: fix fetching and serializing author
             Author = SerializeAuthorIfExists(comment.Author);
         }
 
