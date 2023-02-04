@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Post from "@/components/Blog/Post.vue";
-import NewBlogButton from "@/components/Blog/NewBlogButton.vue";
+import NewBlogButton from "@/components/Blog/NewPostButton.vue";
 import { PostsClient } from "@/api/PostsClient";
 
 const postsResponse = await PostsClient.postsGet();
