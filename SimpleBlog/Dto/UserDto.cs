@@ -40,9 +40,13 @@ namespace SimpleBlog.Dto
         }
 
         [EmailAddress]
+        [Required]
         public string Email { get; }
 
+        [Required]
         public string Name { get; }
+
+        [Required]
         public uint Id { get; }
     }
 
