@@ -11,9 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
 
