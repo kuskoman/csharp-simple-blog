@@ -12,6 +12,8 @@
         v-bind:key="comment.id"
         :body="comment.body"
       ></post-comment>
+      <v-spacer></v-spacer>
+      <new-comment v-if="isLogged()" :postId="id"></new-comment>
     </v-card-item>
   </v-card>
 </template>
@@ -19,6 +21,7 @@
 <script lang="ts">
 import BlogAuthor from "./Author.vue";
 import PostComment from "./Comment.vue";
+import NewComment from "./NewComment.vue";
 
 import { Comment } from "@/lib/sdk";
 
@@ -29,6 +32,10 @@ import { AUTH_STORE, AUTH_ACTION_TYPES } from "../../store/auth";
 export default defineComponent({
   name: "BlogPost",
   props: {
+    id: {
+      required: true,
+      type: Number,
+    },
     title: String,
     body: String,
     author: {
@@ -44,6 +51,7 @@ export default defineComponent({
   components: {
     BlogAuthor,
     PostComment,
+    NewComment,
   },
   methods: {
     isLogged() {

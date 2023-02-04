@@ -1,14 +1,18 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <v-textarea
-      v-model="comment"
-      :rules="rules"
-      label="Comment"
-      class="comment-body"
-      placeholder="Enter your comment here..."
-      required
-    ></v-textarea>
-    <v-btn color="primary" class="submit-btm" :disabled="!valid" @click="submitComment">Submit</v-btn>
+    <div class="comment-box">
+      <v-textarea
+        v-model="comment"
+        :rules="rules"
+        label="Type your comment here"
+        class="comment-body"
+        placeholder="Enter your comment here..."
+        required
+      ></v-textarea>
+    </div>
+    <div class="submit-wrapper">
+      <v-btn color="primary" class="me-4 submit-btn" @click="submitComment">Create</v-btn>
+    </div>
   </v-form>
 </template>
 
@@ -16,13 +20,23 @@
 @import "@/styles/mixins/text-area.scss";
 
 .comment-body {
-  @include big-text-area;
-  margin-bottom: 0;
+  height: 40px;
+  max-height: 40px;
+  padding: auto;
+  overflow: none;
+}
+
+.submit-wrapper {
+  margin-top: 30px;
+}
+
+.comment-box {
+  display: block;
 }
 
 .submit-btn {
   width: 100%;
-  margin-top: 0;
+  display: block;
 }
 </style>
 
