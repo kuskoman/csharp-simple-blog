@@ -32,8 +32,8 @@ namespace SimpleBlog.Repositories
                 .Include(p => p.Author!)
                 .Include(p => p.Comments!)
                 .ThenInclude(c => c.Author)
+                .OrderByDescending(p => p.Id)
                 .ToList();
-            posts.Reverse();
             return posts;
         }
     }
