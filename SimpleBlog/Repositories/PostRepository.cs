@@ -20,7 +20,7 @@ namespace SimpleBlog.Repositories
                 .Where(p => p.Id == id)
                 .Include(p => p.Author!)
                 .Include(p => p.Comments!)
-                .ThenInclude(c => c.Author)
+                .ThenInclude(c => c.Author!)
                 .FirstOrDefault();
             return post;
         }
@@ -31,9 +31,10 @@ namespace SimpleBlog.Repositories
                 .Where(p => p.Id > 0)
                 .Include(p => p.Author!)
                 .Include(p => p.Comments!)
-                .ThenInclude(c => c.Author)
+                .ThenInclude(c => c.Author!)
                 .OrderByDescending(p => p.Id)
                 .ToList();
+
             return posts;
         }
     }

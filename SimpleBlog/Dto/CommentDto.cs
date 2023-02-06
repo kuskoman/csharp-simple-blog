@@ -23,18 +23,7 @@ namespace SimpleBlog.Dto
             Id = comment.Id;
             Body = comment.Body!;
 
-            // todo: fix fetching and serializing author
-            Author = SerializeAuthorIfExists(comment.Author);
-        }
-
-        private static AuthorResponseDto? SerializeAuthorIfExists(User? author)
-        {
-            if (author == null)
-            {
-                return null;
-            }
-
-            return new AuthorResponseDto(author);
+            Author = new AuthorResponseDto(comment.Author!);
         }
     }
 }
