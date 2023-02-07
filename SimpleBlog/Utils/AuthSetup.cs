@@ -57,6 +57,7 @@ namespace SimpleBlog.Utils
                         "MyOriginPolicy",
                         builder =>
                         {
+                            // todo: dynamically add origins
                             builder.WithOrigins("http://localhost:5000");
                             builder.WithOrigins("http://localhost:8080");
                             builder.AllowCredentials();
