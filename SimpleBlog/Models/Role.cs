@@ -4,4 +4,10 @@ using SimpleBlog.Models.Interfaces;
 namespace SimpleBlog.Models
 {
     public class Role : IdentityRole<uint>, IModel { }
+
+    public enum RoleEnum
+    {
+        User,
+        Admin
+    }
 }
