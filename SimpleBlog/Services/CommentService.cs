@@ -2,6 +2,7 @@ using SimpleBlog.Database;
 using SimpleBlog.Models;
 using SimpleBlog.Services.Interfaces;
 using SimpleBlog.Repositories.Interfaces;
+using SimpleBlog.Dto;
 
 namespace SimpleBlog.Services
 {
@@ -20,9 +21,9 @@ namespace SimpleBlog.Services
             return comments;
         }
 
-        public Comment CreateCommentForPost(uint postId, Comment comment)
+        public Comment CreateCommentForPost(uint postId, User author, CommentCreateDto comment)
         {
-            var createdComment = _repository.CreateCommentForPost(postId, comment);
+            var createdComment = _repository.CreateCommentForPost(postId, author, comment);
             return createdComment;
         }
 

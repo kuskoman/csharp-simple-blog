@@ -6,7 +6,7 @@ namespace SimpleBlog.Dto
     public class CommentCreateDto
     {
         [Required]
-        public string Content { get; set; } = string.Empty;
+        public string Body { get; set; } = string.Empty;
 
         [Required]
         public uint PostId { get; set; }

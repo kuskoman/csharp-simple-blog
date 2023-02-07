@@ -1,14 +1,20 @@
 using SimpleBlog.Models;
 using SimpleBlog.Database;
 using SimpleBlog.Repositories.Interfaces;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Dto;
 
 namespace SimpleBlog.Repositories
 {
     public class CommentRepository : BaseRepository<Comment>, ICommentRepository
     {
-        public CommentRepository(BlogContext ctx) : base(ctx, ctx.Comments!) { }
+        private readonly IPostRepository _postRepository;
+
+        public CommentRepository(BlogContext ctx, IPostRepository postRepository)
+            : base(ctx, ctx.Comments!)
+        {
+            _postRepository = postRepository;
+        }
 
         public List<Comment> GetCommentsForPost(uint postId)
         {
@@ -19,9 +25,16 @@ namespace SimpleBlog.Repositories
                 .ToList();
         }
 
-        public Comment CreateCommentForPost(uint postId, Comment comment)
+        public Comment CreateCommentForPost(uint postId, User author, CommentCreateDto commentDto)
         {
-            comment.Post = _ctx.Posts!.Find(postId);
+            var post = _postRepository.Get(postId)!;
+
+            var comment = new Comment()
+            {
+                Body = commentDto.Body!,
+                Post = post,
+                Author = author
+            };
             return Create(comment);
         }
     }

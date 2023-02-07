@@ -91,8 +91,8 @@ namespace SimpleBlog.Controllers
                 return NotFound();
             }
 
-            existingPost.Title = postDto.Title;
-            existingPost.Body = postDto.Content;
+            existingPost.Title = postDto.Title!;
+            existingPost.Body = postDto.Content!;
 
             var modifiedPost = _postService.Modify(existingPost);
             return Ok(new PostShowDto(modifiedPost));
