@@ -3,7 +3,7 @@
 ## Project setup
 
 ```sh
-yarn install
+yarn install --frozen-lockfile
 ```
 
 ### Compiles and hot-reloads for development
@@ -18,24 +18,19 @@ yarn serve
 yarn build
 ```
 
-### Run your unit tests
+## API Client Generation
+
+This project utilizes OpenAPI Generator to generate API clients for the backend API. The API client is generated using the following command:
 
 ```sh
-yarn test:unit
+yarn sdk
 ```
 
-### Run your end-to-end tests
+The command will update SDK files stored under [src/lib/sdk directory](./src/lib/sdk).
+Most of the files are generated automatically, but some of them are manually modified to add custom logic.
+
+## Build Docker Image
 
 ```sh
-yarn test:e2e
+docker build -t simpleblog-client-app .
 ```
-
-### Lints and fixes files
-
-```sh
-yarn lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
