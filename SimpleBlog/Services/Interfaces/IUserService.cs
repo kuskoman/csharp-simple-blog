@@ -8,5 +8,6 @@ namespace SimpleBlog.Services.Interfaces
     {
         public User? GetByEmail(string email);
         public User? GetByName(string name);
+        public List<string> GetRoles(User user);
     }
 }

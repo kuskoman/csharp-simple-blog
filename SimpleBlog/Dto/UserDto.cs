@@ -48,6 +48,8 @@ namespace SimpleBlog.Dto
 
         [Required]
         public uint Id { get; } = 0;
+
+        public List<string>? Roles { get; set; }
     }
 
     public class AuthorResponseDto

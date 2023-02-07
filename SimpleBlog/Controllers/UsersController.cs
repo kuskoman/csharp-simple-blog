@@ -55,7 +55,9 @@ namespace SimpleBlog.Controllers
                 _logger.LogWarning("Could not find user for current session");
                 return Unauthorized();
             }
-            return Ok(new UserResponseDto(user));
+            var roles = _userService.GetRoles(user);
+            var responseDto = new UserResponseDto(user) { Roles = roles };
+            return Ok(responseDto);
         }
 
         [HttpPost]

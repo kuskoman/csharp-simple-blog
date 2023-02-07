@@ -1,5 +1,6 @@
 using SimpleBlog.Dto;
 using Microsoft.AspNetCore.Identity;
+using SimpleBlog.Models;
 
 namespace SimpleBlog.Services.Interfaces
 {
