@@ -152,3 +152,6 @@ out/
 
 # Node modules
 node_modules/
+
+# JetBrains
+.idea/
