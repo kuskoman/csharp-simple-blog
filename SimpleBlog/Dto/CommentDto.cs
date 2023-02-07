@@ -7,9 +7,6 @@ namespace SimpleBlog.Dto
     {
         [Required]
         public string Body { get; set; } = string.Empty;
-
-        [Required]
-        public uint PostId { get; set; }
     }
 
     public class CommentShowDto
