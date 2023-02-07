@@ -2,6 +2,12 @@
 
 Project built using C#, that allows functionalities like creating users, posts and comments.
 
+## Motivation
+
+This project was built as a university project. The code in this repository has lower quality than the code I usually write,
+but the goal here was to learn and practice C# and try out new Vue.js version. The project is mostly not tested.
+If you are interested in my other projects, you can check out my [GitHub profile](https://github.com/kuskoman?tab=repositories).
+
 ## Running project
 
 ### Prerequisites
