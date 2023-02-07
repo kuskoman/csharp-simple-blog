@@ -22,6 +22,11 @@
           <span class="profile-field-name">Email: </span>
           {{ user.email }}
         </p>
+        <p class="profile-paragraph" v-if="user.roles?.length > 0">
+          <v-icon size="small">mdi-account-key</v-icon>
+          <span class="profile-field-name">Roles: </span>
+          {{ user.roles.join(", ") }}
+        </p>
       </div>
     </v-card>
   </div>
@@ -29,8 +34,13 @@
 
 <script lang="ts" setup>
 import { useStore } from "vuex";
+import { AUTH_STORE, AUTH_ACTION_TYPES } from "../../store/auth";
 
 const store = useStore();
+
+const refreshUserActionName = `${AUTH_STORE}/${AUTH_ACTION_TYPES.FETCH_USER_DATA}`;
+store.dispatch(refreshUserActionName);
+
 const { user } = store.state.auth;
 </script>
 

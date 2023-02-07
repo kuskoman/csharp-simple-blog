@@ -43,33 +43,15 @@ export interface AuthorResponseDto {
 /**
  * 
  * @export
- * @interface Comment
+ * @interface CommentCreateDto
  */
-export interface Comment {
-    /**
-     * 
-     * @type {number}
-     * @memberof Comment
-     */
-    'id'?: number;
+export interface CommentCreateDto {
     /**
      * 
      * @type {string}
-     * @memberof Comment
+     * @memberof CommentCreateDto
      */
-    'body'?: string;
-    /**
-     * 
-     * @type {Post}
-     * @memberof Comment
-     */
-    'post'?: Post;
-    /**
-     * 
-     * @type {User}
-     * @memberof Comment
-     */
-    'author'?: User;
+    'body': string;
 }
 /**
  * 
@@ -133,43 +115,6 @@ export interface IdentityResult {
      * @memberof IdentityResult
      */
     'errors'?: Array<IdentityError>;
-}
-/**
- * 
- * @export
- * @interface Post
- */
-export interface Post {
-    /**
-     * 
-     * @type {number}
-     * @memberof Post
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Post
-     */
-    'title'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Post
-     */
-    'body'?: string;
-    /**
-     * 
-     * @type {User}
-     * @memberof Post
-     */
-    'author'?: User;
-    /**
-     * 
-     * @type {Array<Comment>}
-     * @memberof Post
-     */
-    'comments'?: Array<Comment>;
 }
 /**
  * 
@@ -500,6 +445,12 @@ export interface UserResponseDto {
      * @memberof UserResponseDto
      */
     'id': number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UserResponseDto
+     */
+    'roles'?: Array<string>;
 }
 
 /**
@@ -764,11 +715,11 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @param {number} postId 
-         * @param {Comment} [body] 
+         * @param {CommentCreateDto} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiCommentsPostIdPost: async (postId: number, body?: Comment, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiCommentsPostIdPost: async (postId: number, body?: CommentCreateDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'postId' is not null or undefined
             assertParamExists('apiCommentsPostIdPost', 'postId', postId)
             const localVarPath = `/api/Comments/{postId}`
@@ -821,11 +772,11 @@ export const CommentsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} postId 
-         * @param {Comment} [body] 
+         * @param {CommentCreateDto} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiCommentsPostIdPost(postId: number, body?: Comment, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentShowDto>> {
+        async apiCommentsPostIdPost(postId: number, body?: CommentCreateDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentShowDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiCommentsPostIdPost(postId, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -851,11 +802,11 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
         /**
          * 
          * @param {number} postId 
-         * @param {Comment} [body] 
+         * @param {CommentCreateDto} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiCommentsPostIdPost(postId: number, body?: Comment, options?: any): AxiosPromise<CommentShowDto> {
+        apiCommentsPostIdPost(postId: number, body?: CommentCreateDto, options?: any): AxiosPromise<CommentShowDto> {
             return localVarFp.apiCommentsPostIdPost(postId, body, options).then((request) => request(axios, basePath));
         },
     };
@@ -882,12 +833,12 @@ export class CommentsApi extends BaseAPI {
     /**
      * 
      * @param {number} postId 
-     * @param {Comment} [body] 
+     * @param {CommentCreateDto} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommentsApi
      */
-    public apiCommentsPostIdPost(postId: number, body?: Comment, options?: AxiosRequestConfig) {
+    public apiCommentsPostIdPost(postId: number, body?: CommentCreateDto, options?: AxiosRequestConfig) {
         return CommentsApiFp(this.configuration).apiCommentsPostIdPost(postId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

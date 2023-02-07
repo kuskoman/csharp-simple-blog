@@ -23,7 +23,7 @@ import BlogAuthor from "./Author.vue";
 import PostComment from "./Comment.vue";
 import NewComment from "./NewComment.vue";
 
-import { Comment } from "@/lib/sdk";
+import { CommentShowDto as Comment } from "@/lib/sdk";
 
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
