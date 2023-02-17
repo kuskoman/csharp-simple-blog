@@ -1,6 +1,12 @@
 <template>
   <div v-for="post in posts" :key="post.id">
-    <post :body="post.content" :author="post.author" :title="post.title" :id="post.id!"></post>
+    <post
+      :body="post.content"
+      :author="post.author"
+      :title="post.title"
+      :id="post.id!"
+      :comments="post.comments"
+    ></post>
   </div>
   <new-blog-button></new-blog-button>
 </template>
