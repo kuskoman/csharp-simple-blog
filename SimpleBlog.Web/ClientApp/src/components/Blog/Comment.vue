@@ -1,5 +1,5 @@
 <template>
-  <v-card tag="article">
+  <v-card>
     <v-card-title tag="h2">{{ title }}</v-card-title>
     <v-card-text tag="p">{{ body }}</v-card-text>
     <blog-author v-if="author" :author="author.name"></blog-author>
